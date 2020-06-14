@@ -357,11 +357,11 @@
             <div class="card mb-3 widget-content bg-grow-early">
               <div class="widget-content-wrapper text-white">
                 <div class="widget-content-left">
-                  <div class="widget-heading">Loan Details</div>
-                  <div class="widget-subheading">Total Cash Needed</div>
+                  <div class="widget-heading">CoC ROI</div>
+                  <div class="widget-subheading">Based on rental income and purchase price</div>
                 </div>
                 <div class="widget-content-right">
-                  <div class="widget-numbers text-white">$<span id="totalCashNeeded">485000</span></div>
+                  <div class="widget-numbers text-white"><span id="cocCard">1.54</span>%</div>
                 </div>
               </div>
             </div>
@@ -424,18 +424,18 @@
 
                   <div class="input-column">
                     <h5 class="card-title" style="color: #4CAF50;">Expenses</h5>
-                    <div class="position-relative row form-group"><label class="col-sm-2 col-form-label">Other
+                    <div class="position-relative row form-group"><label class="col-sm-2 col-form-label">Total
                       expenses</label>
-                      <div class="col-sm-10"><input type="range" min="0" max="100" step="5" value="90" class="slider"
+                      <div class="col-sm-10"><input type="range" min="0" max="3000" step="100" value="1000" class="slider"
                                                     id="otherExpensesSlider">
                         <p>Value: $<span id="otherExpensesDemo"></span></p></div>
                     </div>
-                    <div class="position-relative row form-group"><label class="col-sm-2 col-form-label">Custom
-                      expenses</label>
-                      <div class="col-sm-10"><input type="range" min="0" max="100" step="5" value="30" class="slider"
-                                                    id="customExpensesSlider">
-                        <p>Value: $<span id="customExpensesDemo"></span></p></div>
-                    </div>
+<!--                    <div class="position-relative row form-group"><label class="col-sm-2 col-form-label">Custom-->
+<!--                      expenses</label>-->
+<!--                      <div class="col-sm-10"><input type="range" min="0" max="100" step="5" value="30" class="slider"-->
+<!--                                                    id="customExpensesSlider">-->
+<!--                        <p>Value: $<span id="customExpensesDemo"></span></p></div>-->
+<!--                    </div>-->
                     <div class="position-relative row form-group"><label class="col-sm-2 col-form-label">Vacancy</label>
                       <div class="col-sm-10"><input type="range" min="0" max="20" step="1" value="2" class="slider"
                                                     id="vacancySlider">
@@ -449,7 +449,7 @@
                     </div>
                     <div class="position-relative row form-group"><label class="col-sm-2 col-form-label">Expense
                       Growth</label>
-                      <div class="col-sm-10"><input type="range" min="0" max="10" step="0.1" value="2" class="slider"
+                      <div class="col-sm-10"><input type="range" min="0" max="10" step="0.5" value="2" class="slider"
                                                     id="expenseGrowthSlider">
                         <p>Value: <span id="expenseGrowthDemo"></span>%</p></div>
                     </div>
@@ -480,11 +480,15 @@
                                                     id="LoanTermSlider">
                         <p>Value: <span id="LoanTermDemo"></span> years</p></div>
                     </div>
-                    <div class="position-relative row form-group"><label class="col-sm-2 col-form-label">Interest
-                      rate</label>
+                    <div class="position-relative row form-group"><label class="col-sm-2 col-form-label">Interest rate</label>
                       <div class="col-sm-10"><input type="range" min="0" max="10" step="0.1" value="3.0" class="slider"
                                                     id="interestRateSlider">
                         <p>Value: <span id="interestRateDemo"></span>%</p></div>
+                    </div>
+                    <div class="position-relative row form-group"><label class="col-sm-2 col-form-label">Capital growth rate</label>
+                      <div class="col-sm-10"><input type="range" min="0" max="10" step="0.1" value="3.0" class="slider"
+                                                    id="capitalGrowthRateSlider">
+                        <p>Value: <span id="capitalGrowthRateDemo"></span>%</p></div>
                     </div>
                   </div>
                 </form>
