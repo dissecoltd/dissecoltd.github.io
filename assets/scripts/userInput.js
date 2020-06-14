@@ -197,8 +197,11 @@ function updateLabel() {
 function calculateAnnualIncomeGrowthOverTime() {
   updateLabel();
   chart.data.datasets[0].data = [];
-  for (let i = 0; i <= loanTerm; i++) {
-    chart.data.datasets[0].data.push(rentalIncome * (1 + (annualIncomeGrowth / 100) * i));
+  let income = rentalIncome;
+  chart.data.datasets[0].data.push(income);
+  for (let i = 1; i <= loanTerm; i++) {
+    income += (income * (annualIncomeGrowth / 100));
+    chart.data.datasets[0].data.push(income);
   }
   chart.update();
 }
