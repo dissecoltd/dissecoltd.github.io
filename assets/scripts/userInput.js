@@ -19,13 +19,8 @@ let chart = new Chart(ctx, {
         borderColor: '#fa9656',
         backgroundColor: 'rgba(0, 0, 0, 0)',
         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-      },
-      {
-        label: 'CoC ROI',
-        borderColor: '#4c4c4c',
-        backgroundColor: 'rgba(0, 0, 0, 0)',
-        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-      }]
+      }
+    ]
   },
 
   // Configuration options go here
@@ -36,14 +31,14 @@ let chart = new Chart(ctx, {
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Amount'
+          labelString: 'Year'
         }
       }],
       yAxes: [{
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Year'
+          labelString: 'Amount'
         }
       }]
     }
@@ -88,14 +83,14 @@ let loanChart = new Chart(ctx2, {
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Amount'
+          labelString: 'Year'
         }
       }],
       yAxes: [{
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Year'
+          labelString: 'Amount'
         }
       }]
     }
@@ -108,7 +103,7 @@ let rentalIncomeSlider = document.getElementById("rentalIncomeSlider");
 let annualIncomeGrowthSlider = document.getElementById("annualIncomeGrowthSlider");
 
 let otherExpensesSlider = document.getElementById("otherExpensesSlider");
-let customExpensesSlider = document.getElementById("customExpensesSlider");
+// let customExpensesSlider = document.getElementById("customExpensesSlider");
 let vacancySlider = document.getElementById("vacancySlider");
 let managementFeesSlider = document.getElementById("managementFeesSlider");
 
@@ -117,6 +112,7 @@ let purchasePriceSlider = document.getElementById("purchasePriceSlider");
 let loanAmountSlider = document.getElementById("LoanAmountSlider");
 let loanTermSlider = document.getElementById("LoanTermSlider");
 let interestRateSlider = document.getElementById("interestRateSlider");
+let capitalGrowthRateSlider = document.getElementById("capitalGrowthRateSlider");
 let expenseGrowthSlider = document.getElementById("expenseGrowthSlider");
 
 
@@ -125,7 +121,7 @@ let rentalIncomeDemo = document.getElementById("rentalIncomeDemo");
 let annualIncomeGrowthDemo = document.getElementById("annualIncomeGrowthDemo");
 
 let otherExpensesDemo = document.getElementById("otherExpensesDemo");
-let customExpensesDemo = document.getElementById("customExpensesDemo");
+// let customExpensesDemo = document.getElementById("customExpensesDemo");
 let vacancyDemo = document.getElementById("vacancyDemo");
 let managementFeesDemo = document.getElementById("managementFeesDemo");
 
@@ -134,6 +130,7 @@ let purchasePriceDemo = document.getElementById("purchasePriceDemo");
 let loanAmountDemo = document.getElementById("LoanAmountDemo");
 let loanTermDemo = document.getElementById("LoanTermDemo");
 let interestRateDemo = document.getElementById("interestRateDemo");
+let capitalGrowthRateDemo = document.getElementById("capitalGrowthRateDemo");
 let expenseGrowthDemo = document.getElementById("expenseGrowthDemo");
 
 
@@ -142,7 +139,7 @@ rentalIncomeDemo.innerHTML = rentalIncomeSlider.value;
 annualIncomeGrowthDemo.innerHTML = annualIncomeGrowthSlider.value;
 
 otherExpensesDemo.innerHTML = otherExpensesSlider.value;
-customExpensesDemo.innerHTML = customExpensesSlider.value;
+// customExpensesDemo.innerHTML = customExpensesSlider.value;
 vacancyDemo.innerHTML = vacancySlider.value;
 managementFeesDemo.innerHTML = managementFeesSlider.value;
 
@@ -151,6 +148,7 @@ purchasePriceDemo.innerHTML = purchasePriceSlider.value;
 loanAmountDemo.innerHTML = loanAmountSlider.value;
 loanTermDemo.innerHTML = loanTermSlider.value;
 interestRateDemo.innerHTML = interestRateSlider.value;
+capitalGrowthRateDemo.innerHTML = capitalGrowthRateSlider.value;
 expenseGrowthDemo.innerHTML = expenseGrowthSlider.value;
 
 
@@ -159,7 +157,7 @@ let rentalIncome = parseInt(rentalIncomeSlider.value);
 let annualIncomeGrowth = parseInt(annualIncomeGrowthSlider.value);
 
 let otherExpenses = parseInt(otherExpensesSlider.value);
-let customExpenses = parseInt(customExpensesSlider.value);
+// let customExpenses = parseInt(customExpensesSlider.value);
 let vacancy = parseInt(vacancySlider.value);
 let managementFees = parseInt(managementFeesSlider.value);
 
@@ -169,24 +167,20 @@ let purchasePrice = parseInt(purchasePriceSlider.value);
 let loanAmount = parseInt(loanAmountSlider.value);
 let loanTerm = parseInt(loanTermSlider.value);
 let interestRate = parseFloat(interestRateSlider.value);
+let capitalGrowthRate = parseFloat(capitalGrowthRateSlider.value);
 let expenseGrowth = parseInt(expenseGrowthSlider.value);
-let totalExpense;
 
 
 // Setting card values at the top of the page
 let rentalIncomeCard = document.getElementById("rentalIncome");
 rentalIncomeCard.innerHTML = rentalIncomeSlider.value;
-let totalCashNeeded = document.getElementById("totalCashNeeded");
-totalCashNeeded.innerHTML = loanAmountSlider.value;
+let CoCCard = document.getElementById("cocCard");
+let coc = (rentalIncome / purchasePrice) + 1;
+CoCCard.innerHTML = coc.toString();
 let totalSavingsAmount = document.getElementById("totalSavingsAmount");
 totalSavingsAmount.innerHTML = savingsSlider.value;
 let expensesCard = document.getElementById("expenses");
-expensesCard.innerHTML = calculateExpenses().toString();
-
-function calculateExpenses() {
-  totalExpense = otherExpenses + customExpenses + (rentalIncome * (vacancy / 100)) + (rentalIncome * (managementFees / 100));
-  return totalExpense;
-}
+expensesCard.innerHTML = otherExpenses.toString();
 
 function updateLabel() {
   let currentYear = new Date().getFullYear();
@@ -206,31 +200,49 @@ function calculateAnnualIncomeGrowthOverTime() {
   for (let i = 0; i <= loanTerm; i++) {
     chart.data.datasets[0].data.push(rentalIncome * (1 + (annualIncomeGrowth / 100) * i));
   }
-  calculateCoC();
   chart.update();
 }
 
 function calculateExpenseGrowthOverTime() {
   updateLabel();
-  chart.data.datasets[1].data = [];
-  for (let i = 0; i <= loanTerm; i++) {
-    chart.data.datasets[1].data.push(totalExpense * (1 + (expenseGrowth / 100) * i));
-  }
-  calculateCoC();
+  chart.data.datasets[1].data = calculateExpenses();
   chart.update();
 }
 
-function calculateCoC() {
-  chart.data.datasets[2].data = [];
-  for (let i = 0; i <= loanTerm; i++) {
-    chart.data.datasets[2].data.push(chart.data.datasets[0].data[i] - chart.data.datasets[1].data[i]);
+function calculateExpenses() {
+  let expenses = [];
+  let exp = otherExpenses;
+  expenses.push(exp);
+  for (let i = 1; i <= loanTerm; i++) {
+    exp += (exp * (vacancy / 100));
+    exp += (exp * (managementFees / 100));
+    exp += (exp * (expenseGrowth / 100));
+    expenses.push(exp);
   }
+  return expenses;
+}
+
+function calculateCoC() {
+  coc = (rentalIncome / purchasePrice) + 1;
+  CoCCard.innerHTML = coc.toString();
 }
 
 function calculatePropertyValueOverTime() {
   loanChart.data.datasets[0].data = [];
   for (let i = 0; i <= loanTerm; i++) {
-    loanChart.data.datasets[0].data.push(loanAmount * (1 + (2 / 100) * i));
+    loanChart.data.datasets[0].data.push(purchasePrice * (1 + (capitalGrowthRate / 100) * i));
+  }
+  loanChart.update();
+}
+
+function calculateLoanBalanceOverTime() {
+  loanChart.data.datasets[2].data = [];
+  let leftToPay = loanAmount;
+  loanChart.data.datasets[2].data.push(leftToPay);
+  for (let i = 0; i <= loanTerm; i++) {
+    leftToPay += (leftToPay * (interestRate / 100));
+    leftToPay -= (leftToPay/(loanTerm-i));
+    loanChart.data.datasets[2].data.push(leftToPay);
   }
   loanChart.update();
 }
@@ -238,15 +250,8 @@ function calculatePropertyValueOverTime() {
 function calculateEquityOverTime() {
   loanChart.data.datasets[1].data = [];
   for (let i = 0; i <= loanTerm; i++) {
-    loanChart.data.datasets[1].data.push(loanAmount - (10000 * i));
-  }
-  loanChart.update();
-}
-
-function calculateLoanBalanceOverTime() {
-  loanChart.data.datasets[2].data = [];
-  for (let i = 0; i <= loanTerm; i++) {
-    loanChart.data.datasets[2].data.push(loanAmount);
+    let propValue = purchasePrice * (1 + (capitalGrowthRate / 100) * i);
+    loanChart.data.datasets[1].data.push(propValue - loanChart.data.datasets[2].data[i]);
   }
   loanChart.update();
 }
@@ -256,9 +261,8 @@ calculateAnnualIncomeGrowthOverTime();
 calculateExpenseGrowthOverTime();
 calculateCoC();
 calculatePropertyValueOverTime();
-calculateEquityOverTime();
 calculateLoanBalanceOverTime();
-
+calculateEquityOverTime();
 
 
 // Slider Responses
@@ -267,6 +271,7 @@ rentalIncomeSlider.oninput = function () {
   rentalIncome = parseInt(this.value);
   rentalIncomeCard.innerHTML = rentalIncomeSlider.value;
   calculateAnnualIncomeGrowthOverTime();
+  calculateCoC();
 };
 annualIncomeGrowthSlider.oninput = function () {
   annualIncomeGrowthDemo.innerHTML = this.value;
@@ -277,25 +282,25 @@ annualIncomeGrowthSlider.oninput = function () {
 otherExpensesSlider.oninput = function () {
   otherExpensesDemo.innerHTML = this.value;
   otherExpenses = parseInt(this.value);
-  expensesCard.innerHTML = calculateExpenses().toString();
+  expensesCard.innerHTML = otherExpenses.toString();
   calculateExpenseGrowthOverTime();
 };
-customExpensesSlider.oninput = function () {
-  customExpensesDemo.innerHTML = this.value;
-  customExpenses = parseInt(this.value);
-  expensesCard.innerHTML = calculateExpenses().toString();
-  calculateExpenseGrowthOverTime();
-};
+// customExpensesSlider.oninput = function () {
+//   customExpensesDemo.innerHTML = this.value;
+//   customExpenses = parseInt(this.value);
+//   expensesCard.innerHTML = otherExpenses.toString();
+//   calculateExpenseGrowthOverTime();
+// };
 vacancySlider.oninput = function () {
   vacancyDemo.innerHTML = this.value;
   vacancy = parseInt(this.value);
-  expensesCard.innerHTML = calculateExpenses().toString();
+  expensesCard.innerHTML = otherExpenses.toString();
   calculateExpenseGrowthOverTime();
 };
 managementFeesSlider.oninput = function () {
   managementFeesDemo.innerHTML = this.value;
   managementFees = parseInt(this.value);
-  expensesCard.innerHTML = calculateExpenses().toString();
+  expensesCard.innerHTML = otherExpenses.toString();
   calculateExpenseGrowthOverTime();
 };
 expenseGrowthSlider.oninput = function () {
@@ -308,6 +313,7 @@ expenseGrowthSlider.oninput = function () {
 purchasePriceSlider.oninput = function () {
   purchasePriceDemo.innerHTML = this.value;
   purchasePrice = parseInt(this.value);
+  calculateCoC();
 };
 loanAmountSlider.oninput = function () {
   loanAmountDemo.innerHTML = this.value;
@@ -324,6 +330,10 @@ loanTermSlider.oninput = function () {
 interestRateSlider.oninput = function () {
   interestRateDemo.innerHTML = this.value;
   interestRate = parseFloat(this.value);
+};
+capitalGrowthRateSlider.oninput = function () {
+  capitalGrowthRateDemo.innerHTML = this.value;
+  capitalGrowthRate = parseFloat(this.value);
 };
 savingsSlider.oninput = function () {
   savingsDemo.innerHTML = this.value;
