@@ -176,7 +176,7 @@ let rentalIncomeCard = document.getElementById("rentalIncome");
 rentalIncomeCard.innerHTML = rentalIncomeSlider.value;
 let CoCCard = document.getElementById("cocCard");
 let coc = (rentalIncome / purchasePrice) + 1;
-CoCCard.innerHTML = coc.toString();
+CoCCard.innerHTML = coc.toFixed( 4).toString();
 let totalSavingsAmount = document.getElementById("totalSavingsAmount");
 totalSavingsAmount.innerHTML = savingsSlider.value;
 let expensesCard = document.getElementById("expenses");
@@ -224,7 +224,7 @@ function calculateExpenses() {
 
 function calculateCoC() {
   coc = (rentalIncome / purchasePrice) + 1;
-  CoCCard.innerHTML = coc.toString();
+  CoCCard.innerHTML = coc.toFixed( 4).toString();
 }
 
 function calculatePropertyValueOverTime() {
@@ -314,11 +314,16 @@ purchasePriceSlider.oninput = function () {
   purchasePriceDemo.innerHTML = this.value;
   purchasePrice = parseInt(this.value);
   calculateCoC();
+  calculatePropertyValueOverTime();
+  calculateLoanBalanceOverTime();
+  calculateEquityOverTime();
 };
 loanAmountSlider.oninput = function () {
   loanAmountDemo.innerHTML = this.value;
   loanAmount = parseInt(this.value);
-  totalCashNeeded.innerHTML = loanAmountSlider.value;
+  calculatePropertyValueOverTime();
+  calculateLoanBalanceOverTime();
+  calculateEquityOverTime();
 };
 loanTermSlider.oninput = function () {
   loanTermDemo.innerHTML = this.value;
@@ -326,17 +331,29 @@ loanTermSlider.oninput = function () {
   calculateAnnualIncomeGrowthOverTime();
   calculateExpenseGrowthOverTime();
   updateLabel();
+  calculatePropertyValueOverTime();
+  calculateLoanBalanceOverTime();
+  calculateEquityOverTime();
 };
 interestRateSlider.oninput = function () {
   interestRateDemo.innerHTML = this.value;
   interestRate = parseFloat(this.value);
+  calculatePropertyValueOverTime();
+  calculateLoanBalanceOverTime();
+  calculateEquityOverTime();
 };
 capitalGrowthRateSlider.oninput = function () {
   capitalGrowthRateDemo.innerHTML = this.value;
   capitalGrowthRate = parseFloat(this.value);
+  calculatePropertyValueOverTime();
+  calculateLoanBalanceOverTime();
+  calculateEquityOverTime();
 };
 savingsSlider.oninput = function () {
   savingsDemo.innerHTML = this.value;
   savings = parseInt(savingsSlider.value);
   totalSavingsAmount.innerHTML = savingsSlider.value;
+  calculatePropertyValueOverTime();
+  calculateLoanBalanceOverTime();
+  calculateEquityOverTime();
 };
