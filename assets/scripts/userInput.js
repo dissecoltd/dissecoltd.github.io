@@ -252,7 +252,7 @@ function calculateEquityOverTime() {
   loanChart.data.datasets[1].data = [];
   for (let i = 0; i <= loanTerm; i++) {
     let propValue = purchasePrice * (1 + (capitalGrowthRate / 100) * i);
-    loanChart.data.datasets[1].data.push(propValue - loanChart.data.datasets[2].data[i]);
+    loanChart.data.datasets[1].data.push(propValue - purchasePrice);
   }
   loanChart.update();
 }
