@@ -214,11 +214,9 @@ function calculateExpenseGrowthOverTime() {
 
 function calculateExpenses() {
   let expenses = [];
-  let exp = otherExpenses;
+  let exp = otherExpenses + (otherExpenses * (vacancy / 100)) + (otherExpenses * (managementFees / 100));
   expenses.push(exp);
   for (let i = 1; i <= loanTerm; i++) {
-    exp += (exp * (vacancy / 100));
-    exp += (exp * (managementFees / 100));
     exp += (exp * (expenseGrowth / 100));
     expenses.push(exp);
   }
