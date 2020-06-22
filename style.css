@@ -36,14 +36,29 @@
   cursor: pointer;
 }
 
-#capitalGrowthChart {
+#capitalGrowthChart1, #capitalGrowthChart2 {
   max-width: 1000px;
   max-height: 500px;
   margin: 0 auto;
 }
 
-#loanChart {
+#loanChart1, #loanChart2 {
   max-width: 1000px;
   max-height: 500px;
   margin: 0 auto;
+}
+
+.graph-container {
+  display: inline-block;
+  width: 100%;
+  margin-left: 0.15%;
+  margin-right: 0.15%;
+}
+
+#graphContainer2 {
+  display: none;
+}
+
+.form-control {
+  width: 100% !important;
 }
