@@ -166,7 +166,7 @@ let rentalIncomeCard2 = document.getElementById("rentalIncome2");
 rentalIncomeCard2.innerHTML = rentalIncomeSlider2.value;
 let CoCCard2 = document.getElementById("cocCard2");
 let coc2 = (rentalIncome2 / purchasePrice2) + 1;
-CoCCard2.innerHTML = coc2.toFixed( 4).toString();
+CoCCard2.innerHTML = coc2.toFixed(4).toString();
 let expensesCard2 = document.getElementById("expenses2");
 expensesCard2.innerHTML = otherExpenses2.toString();
 
@@ -213,7 +213,7 @@ function calculateExpenses2() {
 
 function calculateCoC2() {
   coc2 = (rentalIncome2 / purchasePrice2) + 1;
-  CoCCard2.innerHTML = coc2.toFixed( 4).toString();
+  CoCCard2.innerHTML = coc2.toFixed(4).toString();
 }
 
 function calculatePropertyValueOverTime2() {
@@ -230,7 +230,7 @@ function calculateLoanBalanceOverTime2() {
   loanChart2.data.datasets[2].data.push(leftToPay);
   for (let i = 0; i <= loanTerm2; i++) {
     leftToPay += (leftToPay * (interestRate2 / 100));
-    leftToPay -= (leftToPay/(loanTerm2-i));
+    leftToPay -= (leftToPay / (loanTerm2 - i));
     loanChart2.data.datasets[2].data.push(leftToPay);
   }
   loanChart2.update();
@@ -360,13 +360,10 @@ savingsSlider2.oninput = function () {
 };
 
 function toggleSecondHomeSection() {
-  homeSection2Enabled = !homeSection2Enabled;
-  if (homeSection2Enabled) {
-    document.getElementById("graphContainer2").style.display = "inline-block";
-  } else {
-    document.getElementById("graphContainer2").style.display = "none";
-  }
-  resizeHomeSections()
+  document.getElementById("graphContainer2").style.display = "inline-block";
+  document.getElementById("graphContainer1").style.display = "none";
+  document.getElementsByClassName("graph-container")[1].style.width = "100%";
+  resizeHomeSections();
 }
 
 function createTable1Home2() {
@@ -378,7 +375,7 @@ function createTable1Home2() {
     child = table.lastElementChild;
   }
 
-  let years = [0,1,2,3,4,9,14,19,24,29];
+  let years = [0, 1, 2, 3, 4, 9, 14, 19, 24, 29];
   for (let i = 0; i <= loanTerm2; i++) {
     if (years.includes(i)) {
       let tableRowString = '<tr>\n' +
@@ -386,7 +383,7 @@ function createTable1Home2() {
         '                 <td>$' + chart2.data.datasets[0].data[i] + '</td>\n' +
         '                 <td>$' + chart2.data.datasets[1].data[i] + '</td>\n' +
         '                </tr>';
-      table.insertAdjacentHTML( 'beforeend', tableRowString );
+      table.insertAdjacentHTML('beforeend', tableRowString);
     }
   }
 }
@@ -400,7 +397,7 @@ function createTable2Home2() {
     child = table.lastElementChild;
   }
 
-  let years = [0,1,2,3,4,9,14,19,24,29];
+  let years = [0, 1, 2, 3, 4, 9, 14, 19, 24, 29];
   for (let i = 0; i <= loanTerm2; i++) {
     if (years.includes(i)) {
       let tableRowString = '<tr>\n' +
@@ -409,7 +406,7 @@ function createTable2Home2() {
         '                 <td>$' + loanChart2.data.datasets[1].data[i] + '</td>\n' +
         '                 <td>$' + loanChart2.data.datasets[2].data[i] + '</td>\n' +
         '                </tr>';
-      table.insertAdjacentHTML( 'beforeend', tableRowString );
+      table.insertAdjacentHTML('beforeend', tableRowString);
     }
   }
 }
