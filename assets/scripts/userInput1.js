@@ -15,7 +15,7 @@ let chart1 = new Chart(document.getElementById('capitalGrowthChart1').getContext
       },
       {
         label: 'Expense Growth',
-        borderColor: '#fa9656',
+        borderColor: '#f7b924',
         backgroundColor: 'rgba(0, 0, 0, 0)',
         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
       }
