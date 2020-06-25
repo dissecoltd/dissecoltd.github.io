@@ -96,7 +96,7 @@ let loanChart2 = new Chart(document.getElementById('loanChart2').getContext('2d'
 let homeSection2Enabled = false;
 
 // User input Sliders for section 2
-let rentalIncomeSlider2 = document.getElementById("rentalIncomeSlider2");
+let weeklyRentalSlider2 = document.getElementById("weeklyRentalSlider2");
 let annualIncomeGrowthSlider2 = document.getElementById("annualIncomeGrowthSlider2");
 let otherExpensesSlider2 = document.getElementById("otherExpensesSlider2");
 // let customExpensesSlider = document.getElementById("customExpensesSlider");
@@ -112,6 +112,7 @@ let expenseGrowthSlider2 = document.getElementById("expenseGrowthSlider2");
 
 
 // User input Values for section 2
+let weeklyRentalDemo2 = document.getElementById("weeklyRentalDemo2");
 let rentalIncomeDemo2 = document.getElementById("rentalIncomeDemo2");
 let annualIncomeGrowthDemo2 = document.getElementById("annualIncomeGrowthDemo2");
 let otherExpensesDemo2 = document.getElementById("otherExpensesDemo2");
@@ -128,7 +129,7 @@ let expenseGrowthDemo2 = document.getElementById("expenseGrowthDemo2");
 
 
 // Setting Demo Value based on slider value for section 2
-rentalIncomeDemo2.innerHTML = rentalIncomeSlider2.value;
+weeklyRentalDemo2.innerHTML = weeklyRentalSlider2.value;
 annualIncomeGrowthDemo2.innerHTML = annualIncomeGrowthSlider2.value;
 
 otherExpensesDemo2.innerHTML = otherExpensesSlider2.value;
@@ -146,11 +147,12 @@ expenseGrowthDemo2.innerHTML = expenseGrowthSlider2.value;
 
 
 // Setting values to Calculation Fields of section 2
-let rentalIncome2 = parseInt(rentalIncomeSlider2.value);
+let vacancy2 = parseInt(vacancySlider2.value);
+let weeklyRental2 = parseInt(weeklyRentalSlider2.value);
+let rentalIncome2 = Math.round(parseInt(weeklyRentalSlider2.value) * (52 * (1 - (vacancy2 / 100))));
 let annualIncomeGrowth2 = parseInt(annualIncomeGrowthSlider2.value);
 let otherExpenses2 = parseInt(otherExpensesSlider2.value);
 // let customExpenses2 = parseInt(customExpensesSlider2.value);
-let vacancy2 = parseInt(vacancySlider2.value);
 let managementFees2 = parseInt(managementFeesSlider2.value);
 let savings2 = parseInt(savingsSlider2.value);
 let purchasePrice2 = parseInt(purchasePriceSlider2.value);
@@ -159,16 +161,19 @@ let loanTerm2 = parseInt(loanTermSlider2.value);
 let interestRate2 = parseFloat(interestRateSlider2.value);
 let capitalGrowthRate2 = parseFloat(capitalGrowthRateSlider2.value);
 let expenseGrowth2 = parseInt(expenseGrowthSlider2.value);
+let netYield2 = 1.54;
 
 
 // Setting card values at the top of the page of section 2
 let rentalIncomeCard2 = document.getElementById("rentalIncome2");
-rentalIncomeCard2.innerHTML = rentalIncomeSlider2.value;
+rentalIncomeCard2.innerHTML = rentalIncome2;
 let CoCCard2 = document.getElementById("cocCard2");
 let coc2 = (rentalIncome2 / purchasePrice2) + 1;
 CoCCard2.innerHTML = coc2.toFixed(4).toString();
 let expensesCard2 = document.getElementById("expenses2");
 expensesCard2.innerHTML = otherExpenses2.toString();
+let netYieldCard2 = document.getElementById("netYield2");
+netYieldCard2.innerHTML = netYield2.toString();
 
 function updateLabel2() {
   let currentYear = new Date().getFullYear();
@@ -216,6 +221,11 @@ function calculateCoC2() {
   CoCCard2.innerHTML = coc2.toFixed(4).toString();
 }
 
+function calculateNetYield2() {
+  netYield2 = ((weeklyRental2 * 52) - otherExpenses2) / purchasePrice2 * 100;
+  netYieldCard2.innerHTML = netYield2.toFixed(4).toString();
+}
+
 function calculatePropertyValueOverTime2() {
   loanChart2.data.datasets[0].data = [];
   for (let i = 0; i <= loanTerm2; i++) {
@@ -245,125 +255,101 @@ function calculateEquityOverTime2() {
   loanChart2.update();
 }
 
-// Reset Charts
-calculateAnnualIncomeGrowthOverTime2();
-calculateExpenseGrowthOverTime2();
-calculateCoC2();
-calculatePropertyValueOverTime2();
-calculateLoanBalanceOverTime2();
-calculateEquityOverTime2();
-createTable1Home2();
-createTable2Home2();
+// Reset Charts & Badges
+function resetValues2() {
+  calculateAnnualIncomeGrowthOverTime2();
+  calculateExpenseGrowthOverTime2();
+  calculateCoC2();
+  calculatePropertyValueOverTime2();
+  calculateLoanBalanceOverTime2();
+  calculateEquityOverTime2();
+  createTable1Home2();
+  createTable2Home2();
+  calculateNetYield2();
+}
+
+resetValues2();
 
 // Slider Responses
-rentalIncomeSlider2.oninput = function () {
-  rentalIncomeDemo2.innerHTML = this.value;
-  rentalIncome2 = parseInt(this.value);
-  rentalIncomeCard2.innerHTML = rentalIncomeSlider2.value;
-  calculateAnnualIncomeGrowthOverTime2();
-  calculateCoC2();
-  createTable1Home2();
+weeklyRentalSlider2.oninput = function () {
+  weeklyRentalDemo2.innerHTML = this.value;
+  weeklyRental2 = parseInt(this.value);
+  rentalIncome2 = Math.round(parseInt(this.value) * (52 * (1 - (vacancy2 / 100))));
+  rentalIncomeCard2.innerHTML = rentalIncome2;
+  resetValues2();
 };
 annualIncomeGrowthSlider2.oninput = function () {
   annualIncomeGrowthDemo2.innerHTML = this.value;
   annualIncomeGrowth2 = parseInt(this.value);
-  calculateAnnualIncomeGrowthOverTime2();
-  createTable1Home2();
+  resetValues2();
 };
 
 otherExpensesSlider2.oninput = function () {
   otherExpensesDemo2.innerHTML = this.value;
   otherExpenses2 = parseInt(this.value);
   expensesCard2.innerHTML = otherExpenses2.toString();
-  calculateExpenseGrowthOverTime2();
-  createTable1Home2();
+  resetValues2();
 };
 // customExpensesSlider2.oninput = function () {
 //   customExpensesDemo2.innerHTML = this.value;
 //   customExpenses2 = parseInt(this.value);
 //   expensesCard2.innerHTML = otherExpenses2.toString();
-//   calculateExpenseGrowthOverTime2();
+//   resetValues2();
 // };
 vacancySlider2.oninput = function () {
   vacancyDemo2.innerHTML = this.value;
   vacancy2 = parseInt(this.value);
   expensesCard2.innerHTML = otherExpenses2.toString();
-  calculateExpenseGrowthOverTime2();
-  createTable1Home2();
+  resetValues2();
 };
 managementFeesSlider2.oninput = function () {
   managementFeesDemo2.innerHTML = this.value;
   managementFees2 = parseInt(this.value);
   expensesCard2.innerHTML = otherExpenses2.toString();
-  calculateExpenseGrowthOverTime2();
-  createTable1Home2();
+  resetValues2();
 };
 expenseGrowthSlider2.oninput = function () {
   expenseGrowthDemo2.innerHTML = this.value;
   expenseGrowth2 = parseInt(this.value);
-  calculateExpenseGrowthOverTime2();
-  createTable1Home2();
+  resetValues2();
 };
 
 
 purchasePriceSlider2.oninput = function () {
   purchasePriceDemo2.innerHTML = this.value;
   purchasePrice2 = parseInt(this.value);
-  calculateCoC2();
-  calculatePropertyValueOverTime2();
-  calculateLoanBalanceOverTime2();
-  calculateEquityOverTime2();
-  createTable2Home2();
+  resetValues2();
 };
 loanAmountSlider2.oninput = function () {
   loanAmountDemo2.innerHTML = this.value;
   loanAmount2 = parseInt(this.value);
-  calculatePropertyValueOverTime2();
-  calculateLoanBalanceOverTime2();
-  calculateEquityOverTime2();
-  createTable2Home2();
+  resetValues2();
 };
 loanTermSlider2.oninput = function () {
   loanTermDemo2.innerHTML = this.value;
   loanTerm2 = parseInt(this.value);
-  calculateAnnualIncomeGrowthOverTime2();
-  calculateExpenseGrowthOverTime2();
-  updateLabel2();
-  calculatePropertyValueOverTime2();
-  calculateLoanBalanceOverTime2();
-  calculateEquityOverTime2();
-  createTable2Home2();
+  resetValues2();
 };
 interestRateSlider2.oninput = function () {
   interestRateDemo2.innerHTML = this.value;
   interestRate2 = parseFloat(this.value);
-  calculatePropertyValueOverTime2();
-  calculateLoanBalanceOverTime2();
-  calculateEquityOverTime2();
-  createTable2Home2();
+  resetValues2();
 };
 capitalGrowthRateSlider2.oninput = function () {
   capitalGrowthRateDemo2.innerHTML = this.value;
   capitalGrowthRate2 = parseFloat(this.value);
-  calculatePropertyValueOverTime2();
-  calculateLoanBalanceOverTime2();
-  calculateEquityOverTime2();
-  createTable2Home2();
+  resetValues2();
 };
 savingsSlider2.oninput = function () {
   savingsDemo2.innerHTML = this.value;
   savings2 = parseInt(savingsSlider2.value);
-  calculatePropertyValueOverTime2();
-  calculateLoanBalanceOverTime2();
-  calculateEquityOverTime2();
-  createTable2Home2();
+  resetValues2();
 };
 
 function toggleSecondHomeSection() {
   document.getElementById("graphContainer2").style.display = "inline-block";
   document.getElementById("graphContainer1").style.display = "none";
   document.getElementsByClassName("graph-container")[1].style.width = "100%";
-  resizeHomeSections();
 }
 
 function createTable1Home2() {

@@ -96,7 +96,7 @@ let loanChart1 = new Chart(document.getElementById('loanChart1').getContext('2d'
 let homeSection1Enabled = true;
 
 // User input Sliders for section 1
-let rentalIncomeSlider1 = document.getElementById("rentalIncomeSlider1");
+let weeklyRentalSlider1 = document.getElementById("weeklyRentalSlider1");
 let annualIncomeGrowthSlider1 = document.getElementById("annualIncomeGrowthSlider1");
 let otherExpensesSlider1 = document.getElementById("otherExpensesSlider1");
 // let customExpensesSlider1 = document.getElementById("customExpensesSlider1");
@@ -112,7 +112,7 @@ let expenseGrowthSlider1 = document.getElementById("expenseGrowthSlider1");
 
 
 // User input Values for section 1
-let rentalIncomeDemo1 = document.getElementById("rentalIncomeDemo1");
+let weeklyRentalDemo1 = document.getElementById("weeklyRentalDemo1");
 let annualIncomeGrowthDemo1 = document.getElementById("annualIncomeGrowthDemo1");
 let otherExpensesDemo1 = document.getElementById("otherExpensesDemo1");
 // let customExpensesDemo1 = document.getElementById("customExpensesDemo1");
@@ -128,7 +128,7 @@ let expenseGrowthDemo1 = document.getElementById("expenseGrowthDemo1");
 
 
 // Setting Demo Value based on slider value for section 1
-rentalIncomeDemo1.innerHTML = rentalIncomeSlider1.value;
+weeklyRentalDemo1.innerHTML = weeklyRentalSlider1.value;
 annualIncomeGrowthDemo1.innerHTML = annualIncomeGrowthSlider1.value;
 
 otherExpensesDemo1.innerHTML = otherExpensesSlider1.value;
@@ -146,11 +146,12 @@ expenseGrowthDemo1.innerHTML = expenseGrowthSlider1.value;
 
 
 // Setting values to Calculation Fields of section 1
-let rentalIncome1 = parseInt(rentalIncomeSlider1.value);
+let vacancy1 = parseInt(vacancySlider1.value);
+let weeklyRental1 = parseInt(weeklyRentalSlider1.value);
+let rentalIncome1 = Math.round(parseInt(weeklyRentalSlider1.value) * (52 * (1 - (vacancy1 / 100))));
 let annualIncomeGrowth1 = parseInt(annualIncomeGrowthSlider1.value);
 let otherExpenses1 = parseInt(otherExpensesSlider1.value);
 // let customExpenses1 = parseInt(customExpensesSlider1.value);
-let vacancy1 = parseInt(vacancySlider1.value);
 let managementFees1 = parseInt(managementFeesSlider1.value);
 let savings1 = parseInt(savingsSlider1.value);
 let purchasePrice1 = parseInt(purchasePriceSlider1.value);
@@ -159,16 +160,19 @@ let loanTerm1 = parseInt(loanTermSlider1.value);
 let interestRate1 = parseFloat(interestRateSlider1.value);
 let capitalGrowthRate1 = parseFloat(capitalGrowthRateSlider1.value);
 let expenseGrowth1 = parseInt(expenseGrowthSlider1.value);
+let netYield1 = 1.54;
 
 
 // Setting card values at the top of the page of section 1
 let rentalIncomeCard1 = document.getElementById("rentalIncome1");
-rentalIncomeCard1.innerHTML = rentalIncomeSlider1.value;
+rentalIncomeCard1.innerHTML = rentalIncome1;
 let CoCCard1 = document.getElementById("cocCard1");
 let coc1 = (rentalIncome1 / purchasePrice1) + 1;
 CoCCard1.innerHTML = coc1.toFixed(4).toString();
 let expensesCard1 = document.getElementById("expenses1");
 expensesCard1.innerHTML = otherExpenses1.toString();
+let netYieldCard1 = document.getElementById("netYield1");
+netYieldCard1.innerHTML = netYield1.toString();
 
 function updateLabel1() {
   let currentYear = new Date().getFullYear();
@@ -216,6 +220,11 @@ function calculateCoC1() {
   CoCCard1.innerHTML = coc1.toFixed(4).toString();
 }
 
+function calculateNetYield1() {
+  netYield1 = ((weeklyRental1 * 52) - otherExpenses1) / purchasePrice1 * 100;
+  netYieldCard1.innerHTML = netYield1.toFixed(4).toString();
+}
+
 function calculatePropertyValueOverTime1() {
   loanChart1.data.datasets[0].data = [];
   for (let i = 0; i <= loanTerm1; i++) {
@@ -245,119 +254,98 @@ function calculateEquityOverTime1() {
   loanChart1.update();
 }
 
-// Reset Charts
-calculateAnnualIncomeGrowthOverTime1();
-calculateExpenseGrowthOverTime1();
-calculateCoC1();
-calculatePropertyValueOverTime1();
-calculateLoanBalanceOverTime1();
-calculateEquityOverTime1();
-createTable1Home1();
-createTable2Home1();
+// Reset Charts & Badges
+function resetValues1() {
+  calculateAnnualIncomeGrowthOverTime1();
+  calculateExpenseGrowthOverTime1();
+  calculateCoC1();
+  calculatePropertyValueOverTime1();
+  calculateLoanBalanceOverTime1();
+  calculateEquityOverTime1();
+  createTable1Home1();
+  createTable2Home1();
+  calculateNetYield1();
+}
+
+resetValues1();
 
 
 // Slider Responses
-rentalIncomeSlider1.oninput = function () {
-  rentalIncomeDemo1.innerHTML = this.value;
-  rentalIncome1 = parseInt(this.value);
-  rentalIncomeCard1.innerHTML = rentalIncomeSlider1.value;
-  calculateAnnualIncomeGrowthOverTime1();
-  calculateCoC1();
-  createTable1Home1();
+weeklyRentalSlider1.oninput = function () {
+  weeklyRentalDemo1.innerHTML = this.value;
+  weeklyRental1 = parseInt(this.value);
+  rentalIncome1 = Math.round(parseInt(this.value) * (52 * (1 - (vacancy1 / 100))));
+  rentalIncomeCard1.innerHTML = rentalIncome1;
+  resetValues1();
 };
 annualIncomeGrowthSlider1.oninput = function () {
   annualIncomeGrowthDemo1.innerHTML = this.value;
   annualIncomeGrowth1 = parseInt(this.value);
-  calculateAnnualIncomeGrowthOverTime1();
-  createTable1Home1();
+  resetValues1();
 };
 
 otherExpensesSlider1.oninput = function () {
   otherExpensesDemo1.innerHTML = this.value;
   otherExpenses1 = parseInt(this.value);
   expensesCard1.innerHTML = otherExpenses1.toString();
-  calculateExpenseGrowthOverTime1();
-  createTable1Home1();
+  resetValues1();
 };
 // customExpensesSlider1.oninput = function () {
 //   customExpensesDemo1.innerHTML = this.value;
 //   customExpenses1 = parseInt(this.value);
 //   expensesCard1.innerHTML = otherExpenses1.toString();
-//   calculateExpenseGrowthOverTime1();
+//   resetValues1();
 // };
 vacancySlider1.oninput = function () {
   vacancyDemo1.innerHTML = this.value;
   vacancy1 = parseInt(this.value);
+  rentalIncome1 = Math.round(parseInt(weeklyRentalSlider1.value) * (52 * (1 - (vacancy1 / 100))));
+  rentalIncomeCard1.innerHTML = rentalIncome1;
   expensesCard1.innerHTML = otherExpenses1.toString();
-  calculateExpenseGrowthOverTime1();
-  createTable1Home1();
+  resetValues1();
 };
 managementFeesSlider1.oninput = function () {
   managementFeesDemo1.innerHTML = this.value;
   managementFees1 = parseInt(this.value);
   expensesCard1.innerHTML = otherExpenses1.toString();
-  calculateExpenseGrowthOverTime1();
-  createTable1Home1();
+  resetValues1();
 };
 expenseGrowthSlider1.oninput = function () {
   expenseGrowthDemo1.innerHTML = this.value;
   expenseGrowth1 = parseInt(this.value);
-  calculateExpenseGrowthOverTime1();
-  createTable1Home1();
+  resetValues1();
 };
 
 
 purchasePriceSlider1.oninput = function () {
   purchasePriceDemo1.innerHTML = this.value;
   purchasePrice1 = parseInt(this.value);
-  calculateCoC1();
-  calculatePropertyValueOverTime1();
-  calculateLoanBalanceOverTime1();
-  calculateEquityOverTime1();
-  createTable2Home1();
+  resetValues1();
 };
 loanAmountSlider1.oninput = function () {
   loanAmountDemo1.innerHTML = this.value;
   loanAmount1 = parseInt(this.value);
-  calculatePropertyValueOverTime1();
-  calculateLoanBalanceOverTime1();
-  calculateEquityOverTime1();
-  createTable2Home1();
+  resetValues1();
 };
 loanTermSlider1.oninput = function () {
   loanTermDemo1.innerHTML = this.value;
   loanTerm1 = parseInt(this.value);
-  calculateAnnualIncomeGrowthOverTime1();
-  calculateExpenseGrowthOverTime1();
-  updateLabel1();
-  calculatePropertyValueOverTime1();
-  calculateLoanBalanceOverTime1();
-  calculateEquityOverTime1();
-  createTable2Home1();
+  resetValues1();
 };
 interestRateSlider1.oninput = function () {
   interestRateDemo1.innerHTML = this.value;
   interestRate1 = parseFloat(this.value);
-  calculatePropertyValueOverTime1();
-  calculateLoanBalanceOverTime1();
-  calculateEquityOverTime1();
-  createTable2Home1();
+  resetValues1();
 };
 capitalGrowthRateSlider1.oninput = function () {
   capitalGrowthRateDemo1.innerHTML = this.value;
   capitalGrowthRate1 = parseFloat(this.value);
-  calculatePropertyValueOverTime1();
-  calculateLoanBalanceOverTime1();
-  calculateEquityOverTime1();
-  createTable2Home1();
+  resetValues1();
 };
 savingsSlider1.oninput = function () {
   savingsDemo1.innerHTML = this.value;
   savings1 = parseInt(savingsSlider1.value);
-  calculatePropertyValueOverTime1();
-  calculateLoanBalanceOverTime1();
-  calculateEquityOverTime1();
-  createTable2Home1();
+  resetValues1();
 };
 
 function toggleCompareHomes() {
@@ -365,17 +353,12 @@ function toggleCompareHomes() {
   document.getElementById("graphContainer2").style.display = "inline-block";
   document.getElementsByClassName("graph-container")[0].style.width = "calc(98%/2)";
   document.getElementsByClassName("graph-container")[1].style.width = "calc(98%/2)";
-  resizeHomeSections();
 }
 
 function toggleFirstHomeSection() {
   document.getElementById("graphContainer1").style.display = "inline-block";
   document.getElementById("graphContainer2").style.display = "none";
   document.getElementsByClassName("graph-container")[0].style.width = "100%";
-  resizeHomeSections();
-}
-
-function resizeHomeSections() {
 }
 
 function createTable1Home1() {
