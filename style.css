@@ -1,3 +1,14 @@
+body, html, .app-main {
+  background-color: #f8f8f8;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #005776;
+  font-weight: 700 !important;
+}
+
+p {
+  font-weight: 600 !important;
+}
+
 .slidecontainer {
   width: 100%;
 }
@@ -48,17 +59,80 @@
   margin: 0 auto;
 }
 
+.form-control {
+  width: 100% !important;
+}
+
+.app-main .app-main__outer {
+  z-index: 9;
+  padding-left: 0 !important;
+}
+
+#graphContainerWrapper {
+  width: 96vw;
+  overflow-x: auto;
+}
+
 .graph-container {
   display: inline-block;
-  width: 100%;
+  min-width: 50vw;
   margin-left: 0.15%;
   margin-right: 0.15%;
 }
 
-#graphContainer2 {
-  display: none;
+.app-header, .app-header__logo {
+  background-color: #333333 !important;
+  height: 70px;
 }
 
-.form-control {
-  width: 100% !important;
+.app-header__content, .app-header__logo {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.app-page-title {
+  background-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.fa-angle-down {
+  color: #fff;
+}
+
+.card-title, .card-header-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  color: #C8102E;
+  font-size: 28px !important;
+  text-transform: none;
+}
+
+.subtitle {
+  font-size: 20px !important;
+}
+
+.logo-title {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 900;
+  color: #ffffff;
+  font-size: 28px !important;
+  text-transform: none;
+}
+
+input, select {
+  background-color: #EFEFEF !important;
+}
+
+td {
+  font-family: 'Source Sans Pro', sans-serif !important;
+  color: #005776 !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+.widget-heading {
+  opacity: 1 !important;
+  font-size: 20px;
+}
+
+.user-name, .user-role {
+  color: #ffffff;
 }
