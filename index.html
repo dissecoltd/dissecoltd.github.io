@@ -13,7 +13,10 @@
   <meta name="msapplication-tap-highlight" content="no">
   <link href="./main.css" rel="stylesheet">
   <link href="./style.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">  <link type="text/css" rel="stylesheet prefetch" href="https://www.addy.co.nz/css/addy.css">
+  <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,700&family=Source+Sans+Pro:wght@400;600;700&display=swap"
+      rel="stylesheet">
+  <link type="text/css" rel="stylesheet prefetch" href="https://www.addy.co.nz/css/addy.css">
   <style>
     .awesomplete {
       display: block !important;
@@ -93,11 +96,14 @@
           <div class="page-title-wrapper">
             <div class="page-title-heading">
               <div class="text-center">
-                <button type="button" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark" onclick="addNewHome()">
-                  <i class="fa fa-plus"></i> <div class="widget-subheading" style="display: inline-block">Add New Home</div>
+                <button type="button" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark"
+                        onclick="addNewHome()" id="addNewHomeBtn">
+                  <i style="margin-right: 6px" class="fa fa-plus"></i>
+                  <div class="widget-subheading" style="display: inline-block">Add New Home</div>
                 </button>
                 <div class="text-center" style="display: inline-block">
-                  <div role="group" id="homeToggleButton" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
+                  <div role="group" id="homeToggleButton" class="btn-group-lg btn-group btn-group-toggle"
+                       data-toggle="buttons">
                   </div>
                 </div>
               </div>
@@ -130,30 +136,6 @@
 </div>
 <script type="text/javascript" src="./assets/scripts/main.js"></script>
 <script type="text/javascript" src="./assets/scripts/userInput.js"></script>
-<script type="text/javascript">
-  // This is the callback function to initialise the address lookup script
-  function initAddy() {
-    var addyComplete1 = new AddyComplete(document.getElementById("address1"));
-    addyComplete1.fields = {
-      address1: document.getElementById("address1"),
-      suburb: document.getElementById("suburb1"),
-      city: document.getElementById("city1"),
-      postcode: document.getElementById("postcode1"),
-      territory: document.getElementById("territory1"),
-      region: document.getElementById("region1")
-    }
-
-    var addyComplete2 = new AddyComplete(document.getElementById("address2"));
-    addyComplete2.fields = {
-      address1: document.getElementById("address2"),
-      suburb: document.getElementById("suburb2"),
-      city: document.getElementById("city2"),
-      postcode: document.getElementById("postcode2"),
-      territory: document.getElementById("territory2"),
-      region: document.getElementById("region2")
-    }
-  }
-</script>
 <script src="https://www.addy.co.nz/scripts/addy.js?key=demo-api-key&callback=initAddy" async defer></script>
 </body>
 </html>

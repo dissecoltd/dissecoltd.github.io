@@ -1,5 +1,6 @@
 let list = [];
 let homes = 1;
+let maxHomes = 5;
 createGraphContainer(homes);
 getElem(`graphContainer${homes}`).style.minWidth = '95vw'; // Full width when only one home present
 
@@ -18,8 +19,67 @@ function resetValues(num) {
 
 function addNewHome() {
   getElem(`graphContainer${homes}`).style.minWidth = '50vw'; // Reset width when more than one home present
+  if (homes >= maxHomes) {
+    getElem("addNewHomeBtn").style.display = "none";
+    return;
+  }
   homes++;
   createGraphContainer(homes);
+  initAddy();
+}
+
+// This is the callback function to initialise the address lookup script
+// The following implementation is a lazy fix and is only appropriate for an MVP
+function initAddy() {
+  var addyComplete1 = new AddyComplete(document.getElementById("address1"));
+  addyComplete1.fields = {
+    address1: document.getElementById("address1"),
+    suburb: document.getElementById("suburb1"),
+    city: document.getElementById("city1"),
+    postcode: document.getElementById("postcode1"),
+    territory: document.getElementById("territory1"),
+    region: document.getElementById("region1")
+  };
+
+  var addyComplete2 = new AddyComplete(document.getElementById("address2"));
+  addyComplete2.fields = {
+    address1: document.getElementById("address2"),
+    suburb: document.getElementById("suburb2"),
+    city: document.getElementById("city2"),
+    postcode: document.getElementById("postcode2"),
+    territory: document.getElementById("territory2"),
+    region: document.getElementById("region2")
+  };
+
+  var addyComplete3 = new AddyComplete(document.getElementById("address3"));
+  addyComplete3.fields = {
+    address1: document.getElementById("address3"),
+    suburb: document.getElementById("suburb3"),
+    city: document.getElementById("city3"),
+    postcode: document.getElementById("postcode3"),
+    territory: document.getElementById("territory3"),
+    region: document.getElementById("region3")
+  };
+
+  var addyComplete4 = new AddyComplete(document.getElementById("address4"));
+  addyComplete4.fields = {
+    address1: document.getElementById("address4"),
+    suburb: document.getElementById("suburb4"),
+    city: document.getElementById("city4"),
+    postcode: document.getElementById("postcode4"),
+    territory: document.getElementById("territory4"),
+    region: document.getElementById("region4")
+  };
+
+  var addyComplete5 = new AddyComplete(document.getElementById("address5"));
+  addyComplete5.fields = {
+    address1: document.getElementById("address5"),
+    suburb: document.getElementById("suburb5"),
+    city: document.getElementById("city5"),
+    postcode: document.getElementById("postcode5"),
+    territory: document.getElementById("territory5"),
+    region: document.getElementById("region5")
+  };
 }
 
 // Returns the HTML element based on its id
@@ -29,7 +89,7 @@ function getElem(id) {
 
 // Create an entire new Home object and append it to the list
 function createGraphContainer(num) {
-  let homeButtonString = `<label class="btn active btn-primary" onclick="toggleHome(${num})">
+  let homeButtonString = `<label class="btn active btn-primary" onclick="toggleHome(${num})" href="#graphContainer${num}">
           <input type="radio" name="options" id="option1" autocomplete="off" checked>Home #${num}
         </label>`;
   getElem("homeToggleButton").insertAdjacentHTML('beforeend', homeButtonString);
@@ -134,6 +194,13 @@ function createGraphContainer(num) {
                       </select>
                       </div>
                     </div>
+                    <div class="col-md-6">
+                      <div class="position-relative form-group" style="padding-top:32px">
+                        <button type="button" class="btn-shadow mr-3 btn btn-success">
+                          <i style="margin-right: 6px" class="fa fa-check"></i><div class="widget-subheading" style="display: inline-block">Healthy Home Certified</div>
+                        </button>
+                      </div>
+                     </div>
                   </div>
                 </div>
               </div>
@@ -149,6 +216,7 @@ function createGraphContainer(num) {
                               <div class="widget-content-wrapper">
                                 <div class="widget-content-left">
                                   <div class="widget-heading">Annual Rental Income</div>
+                                  <div class="widget-subheading">Income received from property excluding expenses</div>
                                 </div>
                                 <div class="widget-content-right">
                                   <div class="widget-numbers text-success">$<span id="rentalIncome${num}">9000</span></div>
@@ -169,6 +237,7 @@ function createGraphContainer(num) {
                               <div class="widget-content-wrapper">
                                 <div class="widget-content-left">
                                   <div class="widget-heading">Annual Expenses</div>
+                                  <div class="widget-subheading">Total expenses of the property</div>
                                 </div>
                                 <div class="widget-content-right">
                                   <div class="widget-numbers text-warning">$<span id="expenses${num}">1724</span></div>
@@ -183,6 +252,7 @@ function createGraphContainer(num) {
                               <div class="widget-content-wrapper">
                                 <div class="widget-content-left">
                                   <div class="widget-heading">Net Yield</div>
+                                  <div class="widget-subheading">Variance in property value from purchase price</div>
                                 </div>
                                 <div class="widget-content-right">
                                   <div class="widget-numbers text-primary"><span id="netYield${num}">1.54</span>%</div>
@@ -203,6 +273,7 @@ function createGraphContainer(num) {
                               <div class="widget-content-wrapper">
                                 <div class="widget-content-left">
                                   <div class="widget-heading">CoC ROI</div>
+                                  <div class="widget-subheading">Cash on Cash ROI</div>
                                 </div>
                                 <div class="widget-content-right">
                                   <div class="widget-numbers text-danger"><span id="cocCard${num}">1.54</span>%</div>
@@ -281,7 +352,7 @@ function createGraphContainer(num) {
                             <div class="col-md-6">
                               <div class="position-relative form-group">
                                 <label><b>Total expenses</b></label>
-                                <input type="range" min="0" max="3000" step="100" value="1000" class="slider"
+                                <input type="range" min="0" max="30000" step="100" value="1000" class="slider"
                                        id="otherExpensesSlider${num}">
                                 <p>Value: $<span id="otherExpensesDemo${num}"></span></p>
                               </div>
@@ -707,7 +778,7 @@ function calculateExpenses(num) {
 }
 
 function calculateCoC(num) {
-  list[num - 1].set("coc", (list[num - 1].get("rentalIncome1") / list[num - 1].get("purchasePrice1")) + 1);
+  list[num - 1].set("coc", (list[num - 1].get("rentalIncome") / list[num - 1].get("purchasePrice")) + 1);
   getElem("cocCard" + num).innerHTML = list[num - 1].get("coc").toFixed(4).toString();
 }
 
@@ -791,11 +862,5 @@ function createTable2Home(num) {
 }
 
 function toggleHome(num) {
-  if (list[num - 1].get("active")) {
-    getElem("graphContainer" + num).style.display = "none";
-    list[num - 1].set("active", false)
-  } else {
-    getElem("graphContainer" + num).style.display = "inline-block";
-    list[num - 1].set("active", true)
-  }
+  getElem(`graphContainer${num}`).scrollIntoView();
 }
