@@ -9,6 +9,7 @@ function resetValues(num) {
   calculateAnnualIncomeGrowthOverTime(num);
   calculateExpenseGrowthOverTime(num);
   calculateCoC(num);
+  calculateCashFlow(num);
   calculatePropertyValueOverTime(num);
   calculateLoanBalanceOverTime(num);
   calculateEquityOverTime(num);
@@ -225,12 +226,6 @@ function createGraphContainer(num) {
                             </div>
                           </div>
                         </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="pt-0 pb-0 card-body">
-                      <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                           <div class="widget-content p-0">
                             <div class="widget-content-outer">
@@ -246,6 +241,12 @@ function createGraphContainer(num) {
                             </div>
                           </div>
                         </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="pt-0 pb-0 card-body">
+                      <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                           <div class="widget-content p-0">
                             <div class="widget-content-outer">
@@ -276,7 +277,22 @@ function createGraphContainer(num) {
                                   <div class="widget-subheading">Cash on Cash ROI</div>
                                 </div>
                                 <div class="widget-content-right">
-                                  <div class="widget-numbers text-danger"><span id="cocCard${num}">1.54</span>%</div>
+                                  <div class="widget-numbers text-success"><span id="cocCard${num}">1.54</span>%</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="list-group-item">
+                          <div class="widget-content p-0">
+                            <div class="widget-content-outer">
+                              <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                  <div class="widget-heading">Cash Flow</div>
+                                  <div class="widget-subheading">Variance between income and expenses</div>
+                                </div>
+                                <div class="widget-content-right">
+                                  <div class="widget-numbers text-warning">$<span id="cashFlow${num}">1724</span></div>
                                 </div>
                               </div>
                             </div>
@@ -624,13 +640,15 @@ function setContainerMapValues(num) {
   containerVariablesMap.set("expenseGrowth", parseInt(getElem("expenseGrowthSlider" + num).value));
   containerVariablesMap.set("netYield", 1.54);
   containerVariablesMap.set("coc", (containerVariablesMap.get("rentalIncome") / (containerVariablesMap.get("purchasePrice")) + 1));
+  containerVariablesMap.set("cashFlow", (containerVariablesMap.get("rentalIncome") - (containerVariablesMap.get("otherExpenses")) + 1));
 
   list.push(containerVariablesMap);
 }
 
 function setCardValues(num) {
-  getElem("expenseGrowthDemo" + num).innerHTML = list[num - 1].get("rentalIncome");
+  getElem("rentalIncome" + num).innerHTML = list[num - 1].get("rentalIncome");
   getElem("cocCard" + num).innerHTML = list[num - 1].get("coc").toFixed(4).toString();
+  getElem("cashFlow" + num).innerHTML = list[num - 1].get("cashFlow");
   getElem("expenses" + num).innerHTML = list[num - 1].get("otherExpenses").toString();
   getElem("netYield" + num).innerHTML = list[num - 1].get("netYield").toString();
 }
@@ -780,6 +798,12 @@ function calculateExpenses(num) {
 function calculateCoC(num) {
   list[num - 1].set("coc", (list[num - 1].get("rentalIncome") / list[num - 1].get("purchasePrice")) + 1);
   getElem("cocCard" + num).innerHTML = list[num - 1].get("coc").toFixed(4).toString();
+}
+
+function calculateCashFlow(num) {
+  list[num - 1].set("cashFlow", list[num - 1].get("rentalIncome") - list[num - 1].get("otherExpenses"));
+  console.log(list[num - 1].get("rentalIncome"))
+  getElem("cashFlow" + num).innerHTML = list[num - 1].get("cashFlow");
 }
 
 function calculateNetYield(num) {
