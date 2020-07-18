@@ -262,6 +262,21 @@ function createGraphContainer(num) {
                             </div>
                           </div>
                         </li>
+                        <!-- <li class="list-group-item">
+                          <div class="widget-content p-0">
+                            <div class="widget-content-outer">
+                              <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                  <div class="widget-heading">Monthly Mortgage</div>
+                                  <div class="widget-subheading">Mortgage to be paid per month</div>
+                                </div>
+                                <div class="widget-content-right">
+                                  <div class="widget-numbers text-danger"><span id="monthlyMortgage${num}">1900</span>%</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li> -->
                       </ul>
                     </div>
                   </div>
@@ -412,10 +427,10 @@ function createGraphContainer(num) {
                           <div class="form-row">
                             <div class="col-md-6">
                               <div class="position-relative form-group">
-                                <label><b>Savings</b></label>
+                                <label><b>Deposit</b></label>
                                 <input type="range" min="0" max="500000" step="1000" value="0" class="slider"
-                                       id="savingsSlider${num}">
-                                <p>Value: $<span id="savingsDemo${num}"></span></p>
+                                       id="depositSlider${num}">
+                                <p>Value: $<span id="depositDemo${num}"></span></p>
                               </div>
                             </div>
 
@@ -496,7 +511,7 @@ function setSliderValues(num) {
   getElem("vacancyDemo" + num).innerHTML = getElem("vacancySlider" + num).value;
   getElem("managementFeesDemo" + num).innerHTML = getElem("managementFeesSlider" + num).value;
 
-  getElem("savingsDemo" + num).innerHTML = getElem("savingsSlider" + num).value;
+  getElem("depositDemo" + num).innerHTML = getElem("depositSlider" + num).value;
   getElem("purchasePriceDemo" + num).innerHTML = getElem("purchasePriceSlider" + num).value;
   getElem("loanAmountDemo" + num).innerHTML = getElem("loanAmountSlider" + num).value;
   getElem("loanTermDemo" + num).innerHTML = getElem("loanTermSlider" + num).value;
@@ -572,9 +587,9 @@ function setSliderResponses(num) {
     list[num - 1].set("capitalGrowthRate", parseFloat(this.value));
     resetValues(num);
   };
-  getElem("savingsSlider" + num).oninput = function () {
-    getElem("savingsDemo" + num).innerHTML = this.value;
-    list[num - 1].set("savings", parseInt(getElem("savingsSlider" + num).value));
+  getElem("depositSlider" + num).oninput = function () {
+    getElem("depositDemo" + num).innerHTML = this.value;
+    list[num - 1].set("deposit", parseInt(getElem("depositSlider" + num).value));
     resetValues(num);
   };
 }
@@ -590,7 +605,7 @@ function setContainerMapValues(num) {
   containerVariablesMap.set("annualIncomeGrowth", parseInt(getElem("annualIncomeGrowthSlider" + num).value));
   containerVariablesMap.set("otherExpenses", parseInt(getElem("otherExpensesSlider" + num).value));
   containerVariablesMap.set("managementFees", parseInt(getElem("managementFeesSlider" + num).value));
-  containerVariablesMap.set("savings", parseInt(getElem("savingsSlider" + num).value));
+  containerVariablesMap.set("deposit", parseInt(getElem("depositSlider" + num).value));
   containerVariablesMap.set("purchasePrice", parseInt(getElem("purchasePriceSlider" + num).value));
   containerVariablesMap.set("loanAmount", parseInt(getElem("loanAmountSlider" + num).value));
   containerVariablesMap.set("loanTerm", parseInt(getElem("loanTermSlider" + num).value));
@@ -735,7 +750,7 @@ function calculateExpenses(num) {
 }
 
 function calculateCoC(num) {
-  list[num - 1].set("coc", (list[num - 1].get("rentalIncome") / list[num - 1].get("purchasePrice")) + 1);
+  list[num - 1].set("coc", (list[num - 1].get("cashFlow") / list[num - 1].get("purchasePrice")) + 1);
   getElem("cocCard" + num).innerHTML = list[num - 1].get("coc").toFixed(4).toString();
 }
 
