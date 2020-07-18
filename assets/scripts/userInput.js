@@ -14,7 +14,6 @@ function resetValues(num) {
   calculateLoanBalanceOverTime(num);
   calculateEquityOverTime(num);
   createTable1Home(num);
-  createTable2Home(num);
   calculateNetYield(num);
 }
 
@@ -331,6 +330,9 @@ function createGraphContainer(num) {
                             <th>Year</th>
                             <th>Rental Income Growth</th>
                             <th>Expense Growth</th>
+                            <th>Property Value</th>
+                            <th>Equity</th>
+                            <th>Loan Balance</th>
                           </tr>
                           </thead>
                           <tbody id="capitalGrowthChart${num}Table"></tbody>
@@ -403,51 +405,7 @@ function createGraphContainer(num) {
                             </div>
                           </div>
                         </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-12 col-lg-12">
-                  <div class="mb-3 card">
-                    <div class="card-header-tab card-header">
-                      <div class="card-header-title">
-                        <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
-                        Property Specifics Chart
-                      </div>
-                      <div class="btn-actions-pane-right">
-                      </div>
-                    </div>
-                    <div class="tab-content">
-                      <div class="tab-pane fade active show" id="tab-eg-57">
-                        <div class="widget-chart p-3">
-                          <canvas id="loanChart${num}"></canvas>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="card-body">
-                      <button type="button" data-toggle="collapse" href="#collapseExample123" class="btn btn-primary">Toggle Chart
-                      </button>
-                      <div class="collapse" id="collapseExample123">
-                        <table class="mb-0 table table-striped">
-                          <thead>
-                          <tr>
-                            <th>Year</th>
-                            <th>Property Value</th>
-                            <th>Equity</th>
-                            <th>Loan Balance</th>
-                          </tr>
-                          </thead>
-                          <tbody id="loanChart${num}Table"></tbody>
-                        </table>
-                      </div>
-                    </div>
-
-                    <div class="card-body">
-                      <form class="">
+                        
                         <div class="input-column">
                           <h5 class="card-title  subtitle" style="color: #4CAF50;">Loan Details</h5>
                           <div class="form-row">
@@ -674,6 +632,24 @@ function createChart(num) {
           borderColor: '#fbde25',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
+        },
+        {
+          label: 'Property Value',
+          borderColor: '#4da4ed',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
+        },
+        {
+          label: 'Equity',
+          borderColor: '#C8102E',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
+        },
+        {
+          label: 'Loan Balance',
+          borderColor: '#005776',
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
         }
       ]
     },
@@ -699,71 +675,17 @@ function createChart(num) {
       }
     }
   });
-  // Loan Line Chart
-  let loanChart = new Chart(document.getElementById('loanChart' + num).getContext('2d'), {
-    // The type of chart we want to create
-    type: 'line',
-
-    // The data for our dataset
-    data: {
-      labels: ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2020', '2021', '2022', '2023', '2024', '2025', '2026'],
-      datasets: [
-        {
-          label: 'Property Value',
-          borderColor: '#4CAF50',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-        },
-        {
-          label: 'Equity',
-          borderColor: '#fbde25',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-        },
-        {
-          label: 'Loan Balance',
-          borderColor: '#83cced',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-        }]
-    },
-
-    // Configuration options go here
-    options: {
-      responsive: true,
-      scales: {
-        xAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Year'
-          }
-        }],
-        yAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Amount'
-          }
-        }]
-      }
-    }
-  });
 
   list[num - 1].set("chart", chart);
-  list[num - 1].set("loanChart", loanChart);
 }
 
 function updateLabel(num) {
   let currentYear = new Date().getFullYear();
   list[num - 1].get("chart").data.labels = [];
-  list[num - 1].get("loanChart").data.labels = [];
   for (let i = 0; i <= list[num - 1].get("loanTerm"); i++) {
     list[num - 1].get("chart").data.labels.push(currentYear + i);
-    list[num - 1].get("loanChart").data.labels.push(currentYear + i);
   }
   list[num - 1].get("chart").update();
-  list[num - 1].get("loanChart").update();
 }
 
 function calculateAnnualIncomeGrowthOverTime(num) {
@@ -802,7 +724,6 @@ function calculateCoC(num) {
 
 function calculateCashFlow(num) {
   list[num - 1].set("cashFlow", list[num - 1].get("rentalIncome") - list[num - 1].get("otherExpenses"));
-  console.log(list[num - 1].get("rentalIncome"))
   getElem("cashFlow" + num).innerHTML = list[num - 1].get("cashFlow");
 }
 
@@ -812,32 +733,32 @@ function calculateNetYield(num) {
 }
 
 function calculatePropertyValueOverTime(num) {
-  list[num - 1].get("loanChart").data.datasets[0].data = [];
+  list[num - 1].get("chart").data.datasets[2].data = [];
   for (let i = 0; i <= list[num - 1].get("loanTerm"); i++) {
-    list[num - 1].get("loanChart").data.datasets[0].data.push(list[num - 1].get("purchasePrice") * (1 + (list[num - 1].get("capitalGrowthRate") / 100) * i));
+    list[num - 1].get("chart").data.datasets[2].data.push(list[num - 1].get("purchasePrice") * (1 + (list[num - 1].get("capitalGrowthRate") / 100) * i));
   }
-  list[num - 1].get("loanChart").update();
+  list[num - 1].get("chart").update();
 }
 
 function calculateLoanBalanceOverTime(num) {
-  list[num - 1].get("loanChart").data.datasets[2].data = [];
+  list[num - 1].get("chart").data.datasets[4].data = [];
   let leftToPay = list[num - 1].get("loanAmount");
-  list[num - 1].get("loanChart").data.datasets[2].data.push(leftToPay);
+  list[num - 1].get("chart").data.datasets[4].data.push(leftToPay);
   for (let i = 0; i <= list[num - 1].get("loanTerm"); i++) {
     leftToPay += (leftToPay * (list[num - 1].get("interestRate") / 100));
     leftToPay -= (leftToPay / (list[num - 1].get("loanTerm") - i));
-    list[num - 1].get("loanChart").data.datasets[2].data.push(leftToPay);
+    list[num - 1].get("chart").data.datasets[4].data.push(leftToPay);
   }
-  list[num - 1].get("loanChart").update();
+  list[num - 1].get("chart").update();
 }
 
 function calculateEquityOverTime(num) {
-  list[num - 1].get("loanChart").data.datasets[1].data = [];
+  list[num - 1].get("chart").data.datasets[3].data = [];
   for (let i = 0; i <= list[num - 1].get("loanTerm"); i++) {
     let propValue = list[num - 1].get("purchasePrice") * (1 + (list[num - 1].get("capitalGrowthRate") / 100) * i);
-    list[num - 1].get("loanChart").data.datasets[1].data.push(propValue - list[num - 1].get("purchasePrice"));
+    list[num - 1].get("chart").data.datasets[3].data.push(propValue - list[num - 1].get("purchasePrice"));
   }
-  list[num - 1].get("loanChart").update();
+  list[num - 1].get("chart").update();
 }
 
 function createTable1Home(num) {
@@ -854,31 +775,11 @@ function createTable1Home(num) {
     if (years.includes(i)) {
       let tableRowString = '<tr>\n' +
         '                 <th scope="row">' + ++i + '</th>\n' +
-        '                 <td>$' + list[num - 1].get("chart").data.datasets[0].data[i] + '</td>\n' +
-        '                 <td>$' + list[num - 1].get("chart").data.datasets[1].data[i] + '</td>\n' +
-        '                </tr>';
-      table.insertAdjacentHTML('beforeend', tableRowString);
-    }
-  }
-}
-
-function createTable2Home(num) {
-  // Remove children
-  let table = getElem(`loanChart${num}Table`);
-  let child = table.lastElementChild;
-  while (child) {
-    table.removeChild(child);
-    child = table.lastElementChild;
-  }
-
-  let years = [0, 1, 2, 3, 4, 9, 14, 19, 24, 29];
-  for (let i = 0; i <= list[num - 1].get("loanTerm"); i++) {
-    if (years.includes(i)) {
-      let tableRowString = '<tr>\n' +
-        '                 <th scope="row">' + ++i + '</th>\n' +
-        '                 <td>$' + list[num - 1].get("loanChart").data.datasets[0].data[i] + '</td>\n' +
-        '                 <td>$' + list[num - 1].get("loanChart").data.datasets[1].data[i] + '</td>\n' +
-        '                 <td>$' + list[num - 1].get("loanChart").data.datasets[2].data[i] + '</td>\n' +
+        '                 <td>$' + list[num - 1].get("chart").data.datasets[0].data[i].toFixed(2).toString() + '</td>\n' +
+        '                 <td>$' + list[num - 1].get("chart").data.datasets[1].data[i].toFixed(2).toString() + '</td>\n' +
+        '                 <td>$' + list[num - 1].get("chart").data.datasets[2].data[i].toFixed(2).toString() + '</td>\n' +
+        '                 <td>$' + list[num - 1].get("chart").data.datasets[3].data[i].toFixed(2).toString() + '</td>\n' +
+        '                 <td>$' + list[num - 1].get("chart").data.datasets[4].data[i].toFixed(2).toString() + '</td>\n' +
         '                </tr>';
       table.insertAdjacentHTML('beforeend', tableRowString);
     }
