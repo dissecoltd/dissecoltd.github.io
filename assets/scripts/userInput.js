@@ -322,8 +322,8 @@ function createGraphContainer(num) {
                       </div>
                     </div>
                     <div class="card-body">
-                      <button type="button" data-toggle="collapse" href="#collapseExample123" class="btn btn-primary">Toggle Chart</button>
-                      <div class="collapse" id="collapseExample123">
+                      <button type="button" data-toggle="collapse" href="#collapseChart${num}" class="btn btn-primary">Toggle Chart</button>
+                      <div class="collapse" id="collapseChart${num}">
                         <table class="mb-0 table table-striped">
                           <thead>
                           <tr>
