@@ -797,6 +797,7 @@ function createTable1Home(num) {
         '                 <td>$' + list[num - 1].get("chart").data.datasets[2].data[i].toFixed(2).toString() + '</td>\n' +
         '                 <td>$' + list[num - 1].get("chart").data.datasets[3].data[i].toFixed(2).toString() + '</td>\n' +
         '                 <td>$' + list[num - 1].get("chart").data.datasets[4].data[i].toFixed(2).toString() + '</td>\n' +
+        '                 <td>$' + list[num - 1].get("chart").data.datasets[5].data[i].toFixed(2).toString() + '</td>\n' +
         '                </tr>';
       table.insertAdjacentHTML('beforeend', tableRowString);
     }
