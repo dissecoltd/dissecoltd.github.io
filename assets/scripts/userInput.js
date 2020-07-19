@@ -8,7 +8,6 @@ getElem(`graphContainer${homes}`).style.minWidth = '95vw'; // Full width when on
 function resetValues(num) {
   calculateAnnualIncomeGrowthOverTime(num);
   calculateExpenseGrowthOverTime(num);
-  calculateCashFlowOverTime(num);
   calculateCoC(num);
   calculateCashFlow(num);
   calculatePropertyValueOverTime(num);
@@ -804,12 +803,6 @@ function createChart(num) {
           borderColor: '#005776',
           backgroundColor: 'rgba(0, 0, 0, 0)',
           data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
-        },
-        {
-          label: 'Cash Flow',
-          borderColor: '#333333',
-          backgroundColor: 'rgba(0, 0, 0, 0)',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
         }
       ]
     },
@@ -863,16 +856,6 @@ function calculateAnnualIncomeGrowthOverTime(num) {
 function calculateExpenseGrowthOverTime(num) {
   updateLabel(num);
   list[num - 1].get("chart").data.datasets[1].data = calculateExpenses(num);
-  list[num - 1].get("chart").update();
-}
-
-function calculateCashFlowOverTime(num) {
-  updateLabel(num);
-  list[num - 1].get("chart").data.datasets[5].data = [];
-  list[num - 1].get("chart").data.datasets[5].data.push(list[num - 1].get("rentalIncome") - list[num - 1].get("otherExpenses"));
-  for (let i = 1; i <= list[num - 1].get("loanTerm"); i++) {
-    list[num - 1].get("chart").data.datasets[5].data.push(list[num - 1].get("chart").data.datasets[0].data[i] - list[num - 1].get("chart").data.datasets[1].data[i]);
-  }
   list[num - 1].get("chart").update();
 }
 
@@ -955,7 +938,6 @@ function createTable1Home(num) {
         '                 <td>$' + list[num - 1].get("chart").data.datasets[2].data[i].toFixed(2).toString() + '</td>\n' +
         '                 <td>$' + list[num - 1].get("chart").data.datasets[3].data[i].toFixed(2).toString() + '</td>\n' +
         '                 <td>$' + list[num - 1].get("chart").data.datasets[4].data[i].toFixed(2).toString() + '</td>\n' +
-        '                 <td>$' + list[num - 1].get("chart").data.datasets[5].data[i].toFixed(2).toString() + '</td>\n' +
         '                </tr>';
       table.insertAdjacentHTML('beforeend', tableRowString);
     }
