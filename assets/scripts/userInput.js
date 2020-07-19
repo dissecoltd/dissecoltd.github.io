@@ -381,22 +381,83 @@ function createGraphContainer(num) {
                         </div>
 
                         <div class="input-column">
-                          <h5 class="card-title  subtitle" style="color: #4CAF50;">Annual Expenses</h5>
+                          <h5 class="card-title  subtitle" style="color: #4CAF50;">Monthly Expenses</h5>
                           <div class="form-row">
                             <div class="col-md-6">
                               <div class="position-relative form-group">
-                                <label><b>Total expenses</b></label>
-                                <input type="range" min="0" max="30000" step="100" value="1000" class="slider"
-                                       id="otherExpensesSlider${num}">
-                                <p>Value: $<span id="otherExpensesDemo${num}"></span></p>
+                                <label><b>Principal on mortgage</b></label>
+                                <input type="range" min="0" max="15000" step="100" value="0" class="slider"
+                                       id="principalOnMortgageSlider${num}">
+                                <p>Value: $<span id="principalOnMortgageDemo${num}"></span></p>
                               </div>
                             </div>
-
+                            
                             <div class="col-md-6">
                               <div class="position-relative form-group">
-                                <label><b>Vacancy</b></label>
-                                <input type="range" min="0" max="20" step="1" value="2" class="slider" id="vacancySlider${num}">
-                                <p>Value: <span id="vacancyDemo${num}"></span>%</p>
+                                <label><b>Interest on mortgage</b></label>
+                                <input type="range" min="0" max="15000" step="100" value="0" class="slider"
+                                       id="interestOnMortgageSlider${num}">
+                                <p>Value: $<span id="interestOnMortgageDemo${num}"></span></p>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="form-row">
+                            <div class="col-md-6">
+                              <div class="position-relative form-group">
+                                <label><b>Insurance</b></label>
+                                <input type="range" min="0" max="15000" step="100" value="0" class="slider"
+                                       id="insuranceSlider${num}">
+                                <p>Value: $<span id="insuranceDemo${num}"></span></p>
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                              <div class="position-relative form-group">
+                                <label><b>Council rates</b></label>
+                                <input type="range" min="0" max="15000" step="100" value="0" class="slider"
+                                       id="councilRatesSlider${num}">
+                                <p>Value: $<span id="councilRatesDemo${num}"></span></p>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="form-row">
+                            <div class="col-md-6">
+                              <div class="position-relative form-group">
+                                <label><b>Bank Fees</b></label>
+                                <input type="range" min="0" max="15000" step="100" value="0" class="slider"
+                                       id="bankFeesSlider${num}">
+                                <p>Value: $<span id="bankFeesDemo${num}"></span></p>
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                              <div class="position-relative form-group">
+                                <label><b>Repairs and maintenance</b></label>
+                                <input type="range" min="0" max="15000" step="100" value="0" class="slider"
+                                       id="repairsAndMaintenanceSlider${num}">
+                                <p>Value: $<span id="repairsAndMaintenanceDemo${num}"></span></p>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="form-row">
+                            <div class="col-md-6">
+                              <div class="position-relative form-group">
+                                <label><b>Accountant rates</b></label>
+                                <input type="range" min="0" max="15000" step="100" value="0" class="slider"
+                                       id="accountantRatesSlider${num}">
+                                <p>Value: $<span id="accountantRatesDemo${num}"></span></p>
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                              <div class="position-relative form-group">
+                                <label><b>Other expenses</b></label>
+                                <input type="range" min="0" max="15000" step="100" value="0" class="slider"
+                                       id="otherExpensesSlider${num}">
+                                <p>Value: $<span id="otherExpensesDemo${num}"></span></p>
                               </div>
                             </div>
                           </div>
@@ -410,14 +471,24 @@ function createGraphContainer(num) {
                                 <p>Value: <span id="managementFeesDemo${num}"></span>%</p>
                               </div>
                             </div>
-
+                            
                             <div class="col-md-6">
                               <div class="position-relative form-group">
-                                <label><b>Expense Growth</b></label>
-                                <input type="range" min="0" max="10" step="0.5" value="2" class="slider"
-                                       id="expenseGrowthSlider${num}">
-                                <p>Value: <span id="expenseGrowthDemo${num}"></span>%</p>
+                                <label><b>Vacancy</b></label>
+                                <input type="range" min="0" max="20" step="1" value="2" class="slider" id="vacancySlider${num}">
+                                <p>Value: <span id="vacancyDemo${num}"></span>%</p>
                               </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="form-row">
+                          <div class="col-md-6">
+                            <div class="position-relative form-group">
+                              <label><b>Expense Growth</b></label>
+                              <input type="range" min="0" max="10" step="0.5" value="2" class="slider"
+                                     id="expenseGrowthSlider${num}">
+                              <p>Value: <span id="expenseGrowthDemo${num}"></span>%</p>
                             </div>
                           </div>
                         </div>
@@ -507,6 +578,13 @@ function setSliderValues(num) {
   getElem("weeklyRentalDemo" + num).innerHTML = getElem("weeklyRentalSlider" + num).value;
   getElem("annualIncomeGrowthDemo" + num).innerHTML = getElem("annualIncomeGrowthSlider" + num).value;
 
+  getElem("principalOnMortgageDemo" + num).innerHTML = getElem("principalOnMortgageSlider" + num).value;
+  getElem("interestOnMortgageDemo" + num).innerHTML = getElem("interestOnMortgageSlider" + num).value;
+  getElem("insuranceDemo" + num).innerHTML = getElem("insuranceSlider" + num).value;
+  getElem("councilRatesDemo" + num).innerHTML = getElem("councilRatesSlider" + num).value;
+  getElem("bankFeesDemo" + num).innerHTML = getElem("bankFeesSlider" + num).value;
+  getElem("repairsAndMaintenanceDemo" + num).innerHTML = getElem("repairsAndMaintenanceSlider" + num).value;
+  getElem("accountantRatesDemo" + num).innerHTML = getElem("accountantRatesSlider" + num).value;
   getElem("otherExpensesDemo" + num).innerHTML = getElem("otherExpensesSlider" + num).value;
   getElem("vacancyDemo" + num).innerHTML = getElem("vacancySlider" + num).value;
   getElem("managementFeesDemo" + num).innerHTML = getElem("managementFeesSlider" + num).value;
@@ -535,10 +613,60 @@ function setSliderResponses(num) {
     resetValues(num);
   };
 
+  getElem("principalOnMortgageSlider" + num).oninput = function () {
+    getElem("principalOnMortgageDemo" + num).innerHTML = this.value;
+    list[num - 1].set("principalOnMortgage", parseInt(this.value));
+    calculateTotalExpenses(num);
+    getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
+    resetValues(num);
+  };
+  getElem("interestOnMortgageSlider" + num).oninput = function () {
+    getElem("interestOnMortgageDemo" + num).innerHTML = this.value;
+    list[num - 1].set("interestOnMortgage", parseInt(this.value));
+    calculateTotalExpenses(num);
+    getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
+    resetValues(num);
+  };
+  getElem("insuranceSlider" + num).oninput = function () {
+    getElem("insuranceDemo" + num).innerHTML = this.value;
+    list[num - 1].set("insurance", parseInt(this.value));
+    calculateTotalExpenses(num);
+    getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
+    resetValues(num);
+  };
+  getElem("councilRatesSlider" + num).oninput = function () {
+    getElem("councilRatesDemo" + num).innerHTML = this.value;
+    list[num - 1].set("councilRates", parseInt(this.value));
+    calculateTotalExpenses(num);
+    getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
+    resetValues(num);
+  };
+  getElem("bankFeesSlider" + num).oninput = function () {
+    getElem("bankFeesDemo" + num).innerHTML = this.value;
+    list[num - 1].set("bankFees", parseInt(this.value));
+    calculateTotalExpenses(num);
+    getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
+    resetValues(num);
+  };
+  getElem("repairsAndMaintenanceSlider" + num).oninput = function () {
+    getElem("repairsAndMaintenanceDemo" + num).innerHTML = this.value;
+    list[num - 1].set("repairsAndMaintenance", parseInt(this.value));
+    calculateTotalExpenses(num);
+    getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
+    resetValues(num);
+  };
+  getElem("accountantRatesSlider" + num).oninput = function () {
+    getElem("accountantRatesDemo" + num).innerHTML = this.value;
+    list[num - 1].set("accountantRates", parseInt(this.value));
+    calculateTotalExpenses(num);
+    getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
+    resetValues(num);
+  };
   getElem("otherExpensesSlider" + num).oninput = function () {
     getElem("otherExpensesDemo" + num).innerHTML = this.value;
     list[num - 1].set("otherExpenses", parseInt(this.value));
-    getElem("expenses" + num).innerHTML = list[num - 1].get("otherExpenses").toString();
+    calculateTotalExpenses(num);
+    getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
     resetValues(num);
   };
   getElem("vacancySlider" + num).oninput = function () {
@@ -546,13 +674,15 @@ function setSliderResponses(num) {
     list[num - 1].set("vacancy", parseInt(this.value));
     list[num - 1].set("rentalIncome", Math.round(parseInt(getElem("weeklyRentalSlider" + num).value) * (52 * (1 - (list[num - 1].get("vacancy") / 100)))));
     getElem("rentalIncome" + num).innerHTML = list[num - 1].get("rentalIncome");
-    getElem("expenses" + num).innerHTML = list[num - 1].get("otherExpenses").toString();
+    calculateTotalExpenses(num);
+    getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
     resetValues(num);
   };
   getElem("managementFeesSlider" + num).oninput = function () {
     getElem("managementFeesDemo" + num).innerHTML = this.value;
     list[num - 1].set("managementFees", parseInt(this.value));
-    getElem("expenses" + num).innerHTML = list[num - 1].get("otherExpenses").toString();
+    calculateTotalExpenses(num);
+    getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
     resetValues(num);
   };
   getElem("expenseGrowthSlider" + num).oninput = function () {
@@ -603,7 +733,15 @@ function setContainerMapValues(num) {
   containerVariablesMap.set("weeklyRental", parseInt(getElem("weeklyRentalSlider" + num).value));
   containerVariablesMap.set("rentalIncome", Math.round(parseInt(getElem("weeklyRentalSlider" + num).value) * (52 * (1 - (containerVariablesMap.get("vacancy") / 100)))));
   containerVariablesMap.set("annualIncomeGrowth", parseInt(getElem("annualIncomeGrowthSlider" + num).value));
+  containerVariablesMap.set("principalOnMortgage", parseInt(getElem("principalOnMortgageSlider" + num).value));
+  containerVariablesMap.set("interestOnMortgage", parseInt(getElem("interestOnMortgageSlider" + num).value));
+  containerVariablesMap.set("insurance", parseInt(getElem("insuranceSlider" + num).value));
+  containerVariablesMap.set("councilRates", parseInt(getElem("councilRatesSlider" + num).value));
+  containerVariablesMap.set("bankFees", parseInt(getElem("bankFeesSlider" + num).value));
+  containerVariablesMap.set("repairsAndMaintenance", parseInt(getElem("repairsAndMaintenanceSlider" + num).value));
+  containerVariablesMap.set("accountantRates", parseInt(getElem("accountantRatesSlider" + num).value));
   containerVariablesMap.set("otherExpenses", parseInt(getElem("otherExpensesSlider" + num).value));
+  containerVariablesMap.set("totalExpenses", 0);
   containerVariablesMap.set("managementFees", parseInt(getElem("managementFeesSlider" + num).value));
   containerVariablesMap.set("deposit", parseInt(getElem("depositSlider" + num).value));
   containerVariablesMap.set("purchasePrice", parseInt(getElem("purchasePriceSlider" + num).value));
@@ -623,7 +761,7 @@ function setCardValues(num) {
   getElem("rentalIncome" + num).innerHTML = list[num - 1].get("rentalIncome");
   getElem("cocCard" + num).innerHTML = list[num - 1].get("coc").toFixed(4).toString();
   getElem("cashFlow" + num).innerHTML = list[num - 1].get("cashFlow");
-  getElem("expenses" + num).innerHTML = list[num - 1].get("otherExpenses").toString();
+  getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
   getElem("netYield" + num).innerHTML = list[num - 1].get("netYield").toString();
 }
 
@@ -738,9 +876,14 @@ function calculateCashFlowOverTime(num) {
   list[num - 1].get("chart").update();
 }
 
+function calculateTotalExpenses(num) {
+  let map = list[num - 1];
+  list[num - 1].set("totalExpenses", map.get("principalOnMortgage") + map.get("interestOnMortgage") + map.get("insurance") + map.get("councilRates") + map.get("bankFees") + map.get("repairsAndMaintenance") + map.get("accountantRates") + map.get("otherExpenses"));
+}
+
 function calculateExpenses(num) {
   let expenses = [];
-  let exp = list[num - 1].get("otherExpenses") + (list[num - 1].get("otherExpenses") * (list[num - 1].get("vacancy") / 100)) + (list[num - 1].get("otherExpenses") * (list[num - 1].get("managementFees") / 100));
+  let exp = list[num - 1].get("totalExpenses") + (list[num - 1].get("totalExpenses") * (list[num - 1].get("vacancy") / 100)) + (list[num - 1].get("totalExpenses") * (list[num - 1].get("managementFees") / 100));
   expenses.push(exp);
   for (let i = 1; i <= list[num - 1].get("loanTerm"); i++) {
     exp += (exp * (list[num - 1].get("expenseGrowth") / 100));
