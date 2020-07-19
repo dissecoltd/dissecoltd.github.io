@@ -47,13 +47,7 @@ p {
   cursor: pointer;
 }
 
-#capitalGrowthChart1, #capitalGrowthChart2 {
-  max-width: 1000px;
-  max-height: 500px;
-  margin: 0 auto;
-}
-
-#loanChart1, #loanChart2 {
+#capitalGrowthChart1 {
   max-width: 1000px;
   max-height: 500px;
   margin: 0 auto;

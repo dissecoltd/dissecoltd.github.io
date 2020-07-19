@@ -302,7 +302,7 @@ function createGraphContainer(num) {
                             <div class="widget-content-outer">
                               <div class="widget-content-wrapper">
                                 <div class="widget-content-left">
-                                  <div class="widget-heading">Cash Flow</div>
+                                  <div class="widget-heading">Weekly Cash Flow</div>
                                   <div class="widget-subheading">Variance between income and expenses</div>
                                 </div>
                                 <div class="widget-content-right">
@@ -759,7 +759,7 @@ function setContainerMapValues(num) {
 function setCardValues(num) {
   getElem("rentalIncome" + num).innerHTML = list[num - 1].get("rentalIncome");
   getElem("cocCard" + num).innerHTML = list[num - 1].get("coc").toFixed(4).toString();
-  getElem("cashFlow" + num).innerHTML = list[num - 1].get("cashFlow");
+  getElem("cashFlow" + num).innerHTML = (list[num - 1].get("cashFlow")).toFixed(2).toString();
   getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
   getElem("netYield" + num).innerHTML = list[num - 1].get("netYield").toString();
 }
@@ -881,8 +881,9 @@ function calculateCoC(num) {
 }
 
 function calculateCashFlow(num) {
-  list[num - 1].set("cashFlow", list[num - 1].get("rentalIncome") - list[num - 1].get("otherExpenses"));
-  getElem("cashFlow" + num).innerHTML = list[num - 1].get("cashFlow");
+  let annualCashFlow = list[num - 1].get("rentalIncome") - list[num - 1].get("totalExpenses");
+  list[num - 1].set("cashFlow", annualCashFlow);
+  getElem("cashFlow" + num).innerHTML = (annualCashFlow/52).toFixed(2).toString();
 }
 
 function calculateNetYield(num) {
