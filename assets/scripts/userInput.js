@@ -901,7 +901,7 @@ function calculateGrossYield(num) {
 }
 
 function calculateMonthlyMortgage(num) {
-  let p = list[num - 1].get("principalOnMortgage");
+  let p = list[num - 1].get("principalOnMortgage")-list[num - 1].get("deposit");
   let i = (list[num - 1].get("interestOnMortgage")/12)/100;
   let n = list[num - 1].get("loanTerm") * 12;
   let monthlyMortgage = (p*(i*Math.pow(1+i, n)))/Math.pow(1+i, n-1);
