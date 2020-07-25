@@ -9,7 +9,6 @@ function resetValues(num) {
   calculateAnnualIncomeGrowthOverTime(num);
   calculateExpenseGrowthOverTime(num);
   calculateCoC(num);
-  calculateCashFlow(num);
   calculatePropertyValueOverTime(num);
   calculateLoanBalanceOverTime(num);
   calculateEquityOverTime(num);
@@ -17,6 +16,7 @@ function resetValues(num) {
   calculateNetYield(num);
   calculateGrossYield(num);
   calculateMonthlyMortgage(num);
+  calculateCashFlow(num);
 }
 
 function addNewHome() {
@@ -380,7 +380,7 @@ function createGraphContainer(num) {
                             <div class="col-md-6">
                               <div class="position-relative form-group">
                                 <label><b>Weekly Rental</b></label>
-                                <input type="range" min="50" max="850" step="10" value="230" class="slider"
+                                <input type="range" min="50" max="850" step="10" value="450" class="slider"
                                        id="weeklyRentalSlider${num}">
                                 <p>Value: $<span id="weeklyRentalDemo${num}"></span></p>
                               </div>
@@ -753,7 +753,7 @@ function setContainerMapValues(num) {
   containerVariablesMap.set("grossYield", 1.54);
   containerVariablesMap.set("monthlyMortgage", 2332);
   containerVariablesMap.set("coc", (containerVariablesMap.get("rentalIncome") / (containerVariablesMap.get("purchasePrice")) + 1));
-  containerVariablesMap.set("cashFlow", (containerVariablesMap.get("rentalIncome") - (containerVariablesMap.get("otherExpenses")) + 1));
+  containerVariablesMap.set("cashFlow", containerVariablesMap.get("weeklyRental") - (containerVariablesMap.get("monthlyMortgage")/4));
 
   list.push(containerVariablesMap);
 }
@@ -880,14 +880,14 @@ function calculateExpenses(num) {
 }
 
 function calculateCoC(num) {
-  list[num - 1].set("coc", (list[num - 1].get("cashFlow") / list[num - 1].get("purchasePrice")) + 1);
+  list[num - 1].set("coc", ((list[num - 1].get("rentalIncome") - list[num - 1].get("totalExpenses")) / list[num - 1].get("purchasePrice")) + 1);
   getElem("cocCard" + num).innerHTML = list[num - 1].get("coc").toFixed(4).toString();
 }
 
 function calculateCashFlow(num) {
-  let annualCashFlow = list[num - 1].get("rentalIncome") - list[num - 1].get("totalExpenses");
-  list[num - 1].set("cashFlow", annualCashFlow);
-  getElem("cashFlow" + num).innerHTML = (annualCashFlow/52).toFixed(2).toString();
+  let cashFlow = list[num - 1].get("weeklyRental") - (list[num - 1].get("monthlyMortgage")/4);
+  list[num - 1].set("cashFlow", cashFlow);
+  getElem("cashFlow" + num).innerHTML = cashFlow.toFixed(2).toString();
 }
 
 function calculateNetYield(num) {
