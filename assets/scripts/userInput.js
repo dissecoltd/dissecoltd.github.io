@@ -15,6 +15,7 @@ function resetValues(num) {
   calculateEquityOverTime(num);
   createTable1Home(num);
   calculateNetYield(num);
+  calculateGrossYield(num);
 }
 
 function addNewHome() {
@@ -256,6 +257,22 @@ function createGraphContainer(num) {
                                 </div>
                                 <div class="widget-content-right">
                                   <div class="widget-numbers text-primary"><span id="netYield${num}">1.54</span>%</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        
+                        <li class="list-group-item">
+                          <div class="widget-content p-0">
+                            <div class="widget-content-outer">
+                              <div class="widget-content-wrapper">
+                                <div class="widget-content-left">
+                                  <div class="widget-heading">Gross Yield</div>
+                                  <div class="widget-subheading">Annual rent as a proportion of purchase price</div>
+                                </div>
+                                <div class="widget-content-right">
+                                  <div class="widget-numbers text-primary"><span id="grossYield${num}">1.54</span>%</div>
                                 </div>
                               </div>
                             </div>
@@ -732,6 +749,7 @@ function setContainerMapValues(num) {
   containerVariablesMap.set("expenseGrowth", parseInt(getElem("expenseGrowthSlider" + num).value));
   containerVariablesMap.set("bodyCorp", parseInt(getElem("bodyCorpSlider" + num).value));
   containerVariablesMap.set("netYield", 1.54);
+  containerVariablesMap.set("grossYield", 1.54);
   containerVariablesMap.set("coc", (containerVariablesMap.get("rentalIncome") / (containerVariablesMap.get("purchasePrice")) + 1));
   containerVariablesMap.set("cashFlow", (containerVariablesMap.get("rentalIncome") - (containerVariablesMap.get("otherExpenses")) + 1));
 
@@ -744,6 +762,7 @@ function setCardValues(num) {
   getElem("cashFlow" + num).innerHTML = (list[num - 1].get("cashFlow")).toFixed(2).toString();
   getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
   getElem("netYield" + num).innerHTML = list[num - 1].get("netYield").toString();
+  getElem("grossYield" + num).innerHTML = list[num - 1].get("grossYield").toString();
 }
 
 function createChart(num) {
@@ -869,8 +888,13 @@ function calculateCashFlow(num) {
 }
 
 function calculateNetYield(num) {
-  list[num - 1].set("netYield", ((list[num - 1].get("weeklyRental") * 52) - list[num - 1].get("otherExpenses")) / list[num - 1].get("purchasePrice") * 100);
+  list[num - 1].set("netYield", (((list[num - 1].get("weeklyRental") * 52) - list[num - 1].get("totalExpenses")) / list[num - 1].get("purchasePrice")) * 100);
   getElem("netYield" + num).innerHTML = list[num - 1].get("netYield").toFixed(4).toString();
+}
+
+function calculateGrossYield(num) {
+  list[num - 1].set("grossYield", ((list[num - 1].get("weeklyRental") * 52) / list[num - 1].get("purchasePrice")) * 100);
+  getElem("grossYield" + num).innerHTML = list[num - 1].get("grossYield").toFixed(4).toString();
 }
 
 function calculatePropertyValueOverTime(num) {
