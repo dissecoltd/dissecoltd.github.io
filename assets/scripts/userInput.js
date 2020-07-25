@@ -16,6 +16,7 @@ function resetValues(num) {
   createTable1Home(num);
   calculateNetYield(num);
   calculateGrossYield(num);
+  calculateMonthlyMortgage(num);
 }
 
 function addNewHome() {
@@ -278,7 +279,7 @@ function createGraphContainer(num) {
                             </div>
                           </div>
                         </li>
-                        <!-- <li class="list-group-item">
+                        <li class="list-group-item">
                           <div class="widget-content p-0">
                             <div class="widget-content-outer">
                               <div class="widget-content-wrapper">
@@ -287,12 +288,12 @@ function createGraphContainer(num) {
                                   <div class="widget-subheading">Mortgage to be paid per month</div>
                                 </div>
                                 <div class="widget-content-right">
-                                  <div class="widget-numbers text-danger"><span id="monthlyMortgage${num}">1900</span>%</div>
+                                  <div class="widget-numbers text-danger">$<span id="monthlyMortgage${num}">2332</span></div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </li> -->
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -504,7 +505,7 @@ function createGraphContainer(num) {
                             <div class="col-md-6">
                               <div class="position-relative form-group">
                                 <label><b>Principal on mortgage</b></label>
-                                <input type="range" min="400000" max="1000000" step="1000" value="0" class="slider"
+                                <input type="range" min="0" max="1000000" step="1000" value="400000" class="slider"
                                        id="principalOnMortgageSlider${num}">
                                 <p>Value: $<span id="principalOnMortgageDemo${num}"></span></p>
                               </div>
@@ -512,8 +513,8 @@ function createGraphContainer(num) {
                             
                             <div class="col-md-6">
                               <div class="position-relative form-group">
-                                <label><b>Interest on mortgage</b></label>
-                                <input type="range" min="0" max="10" step="0.1" value="0" class="slider"
+                                <label><b>Annual Interest on mortgage</b></label>
+                                <input type="range" min="0" max="10" step="0.1" value="4" class="slider"
                                        id="interestOnMortgageSlider${num}">
                                 <p>Value: <span id="interestOnMortgageDemo${num}"></span>%</p>
                               </div>
@@ -750,6 +751,7 @@ function setContainerMapValues(num) {
   containerVariablesMap.set("bodyCorp", parseInt(getElem("bodyCorpSlider" + num).value));
   containerVariablesMap.set("netYield", 1.54);
   containerVariablesMap.set("grossYield", 1.54);
+  containerVariablesMap.set("monthlyMortgage", 2332);
   containerVariablesMap.set("coc", (containerVariablesMap.get("rentalIncome") / (containerVariablesMap.get("purchasePrice")) + 1));
   containerVariablesMap.set("cashFlow", (containerVariablesMap.get("rentalIncome") - (containerVariablesMap.get("otherExpenses")) + 1));
 
@@ -763,6 +765,7 @@ function setCardValues(num) {
   getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
   getElem("netYield" + num).innerHTML = list[num - 1].get("netYield").toString();
   getElem("grossYield" + num).innerHTML = list[num - 1].get("grossYield").toString();
+  getElem("monthlyMortgage" + num).innerHTML = list[num - 1].get("monthlyMortgage").toString();
 }
 
 function createChart(num) {
@@ -895,6 +898,15 @@ function calculateNetYield(num) {
 function calculateGrossYield(num) {
   list[num - 1].set("grossYield", ((list[num - 1].get("weeklyRental") * 52) / list[num - 1].get("purchasePrice")) * 100);
   getElem("grossYield" + num).innerHTML = list[num - 1].get("grossYield").toFixed(4).toString();
+}
+
+function calculateMonthlyMortgage(num) {
+  let p = list[num - 1].get("principalOnMortgage");
+  let i = (list[num - 1].get("interestOnMortgage")/12)/100;
+  let n = list[num - 1].get("loanTerm") * 12;
+  let monthlyMortgage = (p*(i*Math.pow(1+i, n)))/Math.pow(1+i, n-1);
+  list[num - 1].set("monthlyMortgage", monthlyMortgage);
+  getElem("monthlyMortgage" + num).innerHTML = list[num - 1].get("monthlyMortgage").toFixed(2).toString();
 }
 
 function calculatePropertyValueOverTime(num) {
