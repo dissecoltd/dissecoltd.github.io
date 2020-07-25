@@ -470,6 +470,15 @@ function createGraphContainer(num) {
                               <p>Value: <span id="expenseGrowthDemo${num}"></span>%</p>
                             </div>
                           </div>
+                          
+                          <div class="col-md-6">
+                            <div class="position-relative form-group">
+                              <label><b>Body Corp</b></label>
+                              <input type="range" min="0" max="20000" step="100" value="0" class="slider"
+                                     id="bodyCorpSlider${num}">
+                              <p>Value: $<span id="bodyCorpDemo${num}"></span></p>
+                            </div>
+                          </div>
                         </div>
                         
                         <div class="input-column">
@@ -571,6 +580,7 @@ function setSliderValues(num) {
   getElem("loanTermDemo" + num).innerHTML = getElem("loanTermSlider" + num).value;
   getElem("capitalGrowthRateDemo" + num).innerHTML = getElem("capitalGrowthRateSlider" + num).value;
   getElem("expenseGrowthDemo" + num).innerHTML = getElem("expenseGrowthSlider" + num).value;
+  getElem("bodyCorpDemo" + num).innerHTML = getElem("bodyCorpSlider" + num).value;
 }
 
 function setSliderResponses(num) {
@@ -665,6 +675,13 @@ function setSliderResponses(num) {
     list[num - 1].set("expenseGrowth", parseInt(this.value));
     resetValues(num);
   };
+  getElem("bodyCorpSlider" + num).oninput = function () {
+    getElem("bodyCorpDemo" + num).innerHTML = this.value;
+    list[num - 1].set("bodyCorp", parseInt(this.value));
+    calculateTotalExpenses(num);
+    getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
+    resetValues(num);
+  };
 
 
   getElem("purchasePriceSlider" + num).oninput = function () {
@@ -713,6 +730,7 @@ function setContainerMapValues(num) {
   containerVariablesMap.set("loanTerm", parseInt(getElem("loanTermSlider" + num).value));
   containerVariablesMap.set("capitalGrowthRate", parseFloat(getElem("capitalGrowthRateSlider" + num).value));
   containerVariablesMap.set("expenseGrowth", parseInt(getElem("expenseGrowthSlider" + num).value));
+  containerVariablesMap.set("bodyCorp", parseInt(getElem("bodyCorpSlider" + num).value));
   containerVariablesMap.set("netYield", 1.54);
   containerVariablesMap.set("coc", (containerVariablesMap.get("rentalIncome") / (containerVariablesMap.get("purchasePrice")) + 1));
   containerVariablesMap.set("cashFlow", (containerVariablesMap.get("rentalIncome") - (containerVariablesMap.get("otherExpenses")) + 1));
@@ -825,7 +843,7 @@ function calculateExpenseGrowthOverTime(num) {
 
 function calculateTotalExpenses(num) {
   let map = list[num - 1];
-  list[num - 1].set("totalExpenses", map.get("insurance") + map.get("councilRates") + map.get("bankFees") + map.get("repairsAndMaintenance") + map.get("accountantRates") + map.get("otherExpenses"));
+  list[num - 1].set("totalExpenses", map.get("insurance") + map.get("councilRates") + map.get("bankFees") + map.get("repairsAndMaintenance") + map.get("accountantRates") + map.get("otherExpenses") + map.get("bodyCorp"));
 }
 
 function calculateExpenses(num) {
