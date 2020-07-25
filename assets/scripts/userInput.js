@@ -384,26 +384,6 @@ function createGraphContainer(num) {
                           <div class="form-row">
                             <div class="col-md-6">
                               <div class="position-relative form-group">
-                                <label><b>Principal on mortgage</b></label>
-                                <input type="range" min="0" max="15000" step="100" value="0" class="slider"
-                                       id="principalOnMortgageSlider${num}">
-                                <p>Value: $<span id="principalOnMortgageDemo${num}"></span></p>
-                              </div>
-                            </div>
-                            
-                            <div class="col-md-6">
-                              <div class="position-relative form-group">
-                                <label><b>Interest on mortgage</b></label>
-                                <input type="range" min="0" max="15000" step="100" value="0" class="slider"
-                                       id="interestOnMortgageSlider${num}">
-                                <p>Value: $<span id="interestOnMortgageDemo${num}"></span></p>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <div class="form-row">
-                            <div class="col-md-6">
-                              <div class="position-relative form-group">
                                 <label><b>Insurance</b></label>
                                 <input type="range" min="0" max="15000" step="100" value="0" class="slider"
                                        id="insuranceSlider${num}">
@@ -497,6 +477,25 @@ function createGraphContainer(num) {
                           <div class="form-row">
                             <div class="col-md-6">
                               <div class="position-relative form-group">
+                                <label><b>Principal on mortgage</b></label>
+                                <input type="range" min="400000" max="1000000" step="1000" value="0" class="slider"
+                                       id="principalOnMortgageSlider${num}">
+                                <p>Value: $<span id="principalOnMortgageDemo${num}"></span></p>
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                              <div class="position-relative form-group">
+                                <label><b>Interest on mortgage</b></label>
+                                <input type="range" min="0" max="10" step="0.1" value="0" class="slider"
+                                       id="interestOnMortgageSlider${num}">
+                                <p>Value: <span id="interestOnMortgageDemo${num}"></span>%</p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="col-md-6">
+                              <div class="position-relative form-group">
                                 <label><b>Deposit</b></label>
                                 <input type="range" min="0" max="500000" step="1000" value="0" class="slider"
                                        id="depositSlider${num}">
@@ -517,34 +516,13 @@ function createGraphContainer(num) {
                           <div class="form-row">
                             <div class="col-md-6">
                               <div class="position-relative form-group">
-                                <label><b>Loan amount</b></label>
-                                <input type="range" min="0" max="1000000" step="1000" value="320000" class="slider"
-                                       id="loanAmountSlider${num}">
-                                <p>Value: $<span id="loanAmountDemo${num}"></span></p>
-                              </div>
-                            </div>
-
-                            <div class="col-md-6">
-                              <div class="position-relative form-group">
-                                <label><b>Loan term</b></label>
                                 <label><b>Loan term</b></label>
                                 <input type="range" min="0" max="40" step="1" value="30" class="slider"
                                        id="loanTermSlider${num}">
                                 <p>Value: <span id="loanTermDemo${num}"></span> years</p>
                               </div>
                             </div>
-                          </div>
-
-                          <div class="form-row">
-                            <div class="col-md-6">
-                              <div class="position-relative form-group">
-                                <label><b>Interest rate</b></label>
-                                <input type="range" min="0" max="10" step="0.1" value="3.0" class="slider"
-                                       id="interestRateSlider${num}">
-                                <p>Value: <span id="interestRateDemo${num}"></span>%</p>
-                              </div>
-                            </div>
-
+                            
                             <div class="col-md-6">
                               <div class="position-relative form-group">
                                 <label><b>Capital growth rate</b></label>
@@ -590,9 +568,7 @@ function setSliderValues(num) {
 
   getElem("depositDemo" + num).innerHTML = getElem("depositSlider" + num).value;
   getElem("purchasePriceDemo" + num).innerHTML = getElem("purchasePriceSlider" + num).value;
-  getElem("loanAmountDemo" + num).innerHTML = getElem("loanAmountSlider" + num).value;
   getElem("loanTermDemo" + num).innerHTML = getElem("loanTermSlider" + num).value;
-  getElem("interestRateDemo" + num).innerHTML = getElem("interestRateSlider" + num).value;
   getElem("capitalGrowthRateDemo" + num).innerHTML = getElem("capitalGrowthRateSlider" + num).value;
   getElem("expenseGrowthDemo" + num).innerHTML = getElem("expenseGrowthSlider" + num).value;
 }
@@ -621,7 +597,7 @@ function setSliderResponses(num) {
   };
   getElem("interestOnMortgageSlider" + num).oninput = function () {
     getElem("interestOnMortgageDemo" + num).innerHTML = this.value;
-    list[num - 1].set("interestOnMortgage", parseInt(this.value));
+    list[num - 1].set("interestOnMortgage", parseFloat(this.value));
     calculateTotalExpenses(num);
     getElem("expenses" + num).innerHTML = list[num - 1].get("totalExpenses").toString();
     resetValues(num);
@@ -696,19 +672,9 @@ function setSliderResponses(num) {
     list[num - 1].set("purchasePrice", parseInt(this.value));
     resetValues(num);
   };
-  getElem("loanAmountSlider" + num).oninput = function () {
-    getElem("loanAmountDemo" + num).innerHTML = this.value;
-    list[num - 1].set("loanAmount", parseInt(this.value));
-    resetValues(num);
-  };
   getElem("loanTermSlider" + num).oninput = function () {
     getElem("loanTermDemo" + num).innerHTML = this.value;
     list[num - 1].set("loanTerm", parseInt(this.value));
-    resetValues(num);
-  };
-  getElem("interestRateSlider" + num).oninput = function () {
-    getElem("interestRateDemo" + num).innerHTML = this.value;
-    list[num - 1].set("interestRate", parseFloat(this.value));
     resetValues(num);
   };
   getElem("capitalGrowthRateSlider" + num).oninput = function () {
@@ -744,9 +710,7 @@ function setContainerMapValues(num) {
   containerVariablesMap.set("managementFees", parseInt(getElem("managementFeesSlider" + num).value));
   containerVariablesMap.set("deposit", parseInt(getElem("depositSlider" + num).value));
   containerVariablesMap.set("purchasePrice", parseInt(getElem("purchasePriceSlider" + num).value));
-  containerVariablesMap.set("loanAmount", parseInt(getElem("loanAmountSlider" + num).value));
   containerVariablesMap.set("loanTerm", parseInt(getElem("loanTermSlider" + num).value));
-  containerVariablesMap.set("interestRate", parseFloat(getElem("interestRateSlider" + num).value));
   containerVariablesMap.set("capitalGrowthRate", parseFloat(getElem("capitalGrowthRateSlider" + num).value));
   containerVariablesMap.set("expenseGrowth", parseInt(getElem("expenseGrowthSlider" + num).value));
   containerVariablesMap.set("netYield", 1.54);
@@ -861,7 +825,7 @@ function calculateExpenseGrowthOverTime(num) {
 
 function calculateTotalExpenses(num) {
   let map = list[num - 1];
-  list[num - 1].set("totalExpenses", map.get("principalOnMortgage") + map.get("interestOnMortgage") + map.get("insurance") + map.get("councilRates") + map.get("bankFees") + map.get("repairsAndMaintenance") + map.get("accountantRates") + map.get("otherExpenses"));
+  list[num - 1].set("totalExpenses", map.get("insurance") + map.get("councilRates") + map.get("bankFees") + map.get("repairsAndMaintenance") + map.get("accountantRates") + map.get("otherExpenses"));
 }
 
 function calculateExpenses(num) {
@@ -901,10 +865,10 @@ function calculatePropertyValueOverTime(num) {
 
 function calculateLoanBalanceOverTime(num) {
   list[num - 1].get("chart").data.datasets[4].data = [];
-  let leftToPay = list[num - 1].get("loanAmount");
+  let leftToPay = list[num - 1].get("principalOnMortgage");
   list[num - 1].get("chart").data.datasets[4].data.push(leftToPay);
   for (let i = 0; i <= list[num - 1].get("loanTerm"); i++) {
-    leftToPay += (leftToPay * (list[num - 1].get("interestRate") / 100));
+    leftToPay += (leftToPay * (list[num - 1].get("interestOnMortgage") / 100));
     leftToPay -= (leftToPay / (list[num - 1].get("loanTerm") - i));
     list[num - 1].get("chart").data.datasets[4].data.push(leftToPay);
   }
