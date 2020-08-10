@@ -352,7 +352,7 @@ function createGraphContainer(num) {
                     <div class="tab-content">
                       <div class="tab-pane fade active show" id="tab-eg-55">
                         <div class="widget-chart p-3">
-                          <canvas id="capitalGrowthChart${num}"></canvas>
+                          <canvas id="capitalGrowthChart${num}" class="capitalGrowthChart"></canvas>
                         </div>
                       </div>
                     </div>
